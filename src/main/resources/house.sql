@@ -112,7 +112,7 @@ create table `comment` (
 )engine=InnoDB auto_increment=17 default charset=utf8;
 
 # 创建数据库并指定编码集
-CREATE DATABASE `houses` CHARACTER SET utf8 COLLATE utf8_general_ci;
+# CREATE DATABASE `houses` CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 desc house;
 desc house_user;
@@ -123,5 +123,5 @@ desc comment;
 desc blog;
 
 
-show create table house_user;
+# show create table house_user;
 show index from house_user;
