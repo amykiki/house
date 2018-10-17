@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>com.april.house</groupId>
-            <artifactId>house-common</artifactId>
+            <artifactId>house-biz</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
