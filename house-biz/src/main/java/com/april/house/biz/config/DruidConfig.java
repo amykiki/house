@@ -11,14 +11,6 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * @author :  ZouShumin
- * @Project Name :  house
- * @Package Name :  com.april.house.biz.config
- * @Description :
- * @Creation Date:  2018-10-17 15:41
- * --------  ---------  --------------------------
- */
 @Configuration
 public class DruidConfig {
     private static final String DruidPreix = "spring.druid";
