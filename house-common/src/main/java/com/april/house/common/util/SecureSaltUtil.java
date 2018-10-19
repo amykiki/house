@@ -21,6 +21,8 @@ public class SecureSaltUtil {
         } catch (NoSuchAlgorithmException e) {
             rnd = new SecureRandom();
         }
+        //第一次调用nextBytes[]函数时，如果此前没有初始化rnd的种子，rnd会强制给自己设置种子
+        //因此可以先设置种子
         byte[] seed = rnd.generateSeed(64);
         rnd.setSeed(seed);
         long t2 = System.currentTimeMillis();
