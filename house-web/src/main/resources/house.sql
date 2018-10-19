@@ -123,5 +123,16 @@ desc comment;
 desc blog;
 
 
-# show create table house_user;
+show create table house_user;
 show index from house_user;
+
+alter table user add column salt char(48) not null after passwd;
+
+insert into user (id, name, phone, email, aboutme, passwd, salt, avatar, type, create_time, `enable`, agency_id)
+    values
+      (8,'hello992','hello2','spring_boot2@163.com','2255','75fb23b165249cedeb60544c4095ec99', 'CPTPgTlgVkt/nomDxaR3xmY50DbV0w3EdvVseGsIaiOji1Q', '/1493438523/4.jpg',2,'2017-01-31',1,1)
+
+select *
+from user;
+
+delete from user where id in ('7', '8');

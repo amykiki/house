@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Base64;
 
 /**
  * @Description : 产生安全的随机盐，使用SecureRandom
@@ -30,11 +31,18 @@ public class SecureSaltUtil {
     }
 
     public static String genSalt() {
+        byte[] salt = new byte[36];
+        rnd.nextBytes(salt);
+        //产生encodeSalt长度为36/3*4=48
+        String encodeSalt = Base64.getEncoder().encodeToString(salt);
+        return encodeSalt;
+    }
 
-        byte[] bytes = new byte[32];
-        rnd.nextBytes(bytes);
-
-        return null;
+    private static void printLen(byte[] salt, String encodeSalt) {
+        System.out.println("salt = " + salt);
+        System.out.println("encodeSalt = " + encodeSalt);
+        System.out.println("salt.length = " + salt.length);
+        System.out.println("encodeSalt.length() = " + encodeSalt.length());
     }
 
 }
