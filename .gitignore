@@ -13,5 +13,3 @@ generatorConfig.xml
 /build/
 *.settings
 **/rebel.xml
-/img
-houseV*/*
