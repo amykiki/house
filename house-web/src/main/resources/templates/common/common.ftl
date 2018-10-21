@@ -88,7 +88,7 @@
 <script type="text/javascript" src="/static/assets/js/jquery.placeholder.js"></script>
 <script type="text/javascript" src="/static/assets/js/icheck.min.js"></script>
 <script type="text/javascript" src="/static/assets/js/jquery.vanillabox-0.1.5.min.js"></script>
-<script type="text/javascript" src="/static/assets/js/retina-1.1.0.min.js"></script>
+<#--<script type="text/javascript" src="/static/assets/js/retina-1.1.0.min.js"></script>-->
 <script type="text/javascript" src="/static/assets/js/jquery.raty.min.js"></script>
 <script type="text/javascript" src="/static/assets/js/jquery.magnific-popup.min.js"></script>
 <script type="text/javascript" src="/static/assets/js/jshashtable-2.1_src.js"></script>

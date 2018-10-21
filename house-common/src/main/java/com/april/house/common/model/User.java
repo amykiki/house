@@ -13,6 +13,7 @@ public class User implements Serializable {
     private String phone;
     private String name;
     private String passwd;
+    private String salt;
     private String confirmPasswd;
     private Integer type; //普通用户：1 经纪人：2
     private Date createTime;
@@ -63,6 +64,14 @@ public class User implements Serializable {
 
     public void setPasswd(String passwd) {
         this.passwd = passwd;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     public String getConfirmPasswd() {

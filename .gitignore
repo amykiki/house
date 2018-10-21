@@ -13,3 +13,4 @@ generatorConfig.xml
 /build/
 *.settings
 **/rebel.xml
+/imgs/

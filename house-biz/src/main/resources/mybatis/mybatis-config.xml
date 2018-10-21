@@ -12,4 +12,12 @@
         <!--事务超时时间,单位秒-->
         <setting name="defaultStatementTimeout" value="10"/>
     </settings>
+
+    <typeAliases>
+        <typeAlias type="com.april.house.common.model.User" alias="user"/>
+    </typeAliases>
+
+    <mappers>
+        <mapper resource="mapper/user.xml"/>
+    </mappers>
 </configuration>
