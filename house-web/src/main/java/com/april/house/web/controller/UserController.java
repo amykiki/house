@@ -4,11 +4,11 @@ import com.april.house.biz.service.UserService;
 import com.april.house.common.model.User;
 import com.april.house.common.result.ResultMsg;
 import com.april.house.common.util.UserHelper;
-import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/accounts")
@@ -54,6 +54,19 @@ public class UserController {
         } else {
             return "redirect:/accounts/register?" + ResultMsg.errorMsg("激活失败，请确认链接是否过期").asUrlParams();
         }
+    }
+
+    @RequestMapping("/getregcache")
+    @ResponseBody
+    public String getRegisterCaches() {
+        String caches = userService.getRegisterCaches();
+        return caches;
+    }
+
+    @RequestMapping("/delregcache")
+    @ResponseBody
+    public String invalidRegisterCache(String key) {
+        return userService.invalidRegisterCache(key);
     }
 
 

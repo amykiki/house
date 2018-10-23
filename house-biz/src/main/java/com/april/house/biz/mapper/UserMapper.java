@@ -13,5 +13,5 @@ public interface UserMapper {
 
     List<User> selectUsersByQuery(User user);
 
-    void updateByEmail(User updateUser);
+    int updateByEmail(User updateUser);
 }

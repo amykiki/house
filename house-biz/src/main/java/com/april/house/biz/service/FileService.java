@@ -6,6 +6,7 @@ import com.google.common.io.Files;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,7 +19,7 @@ import java.util.List;
 @Service
 public class FileService {
     Logger logger = LogManager.getLogger(FileService.class);
-    // TODO: 2018/10/21 获取filePath目录
+    @Value("${file.path}")
     private String filePath;
     // TODO: 2018/10/21
     public List<String> getImgPaths(ArrayList<MultipartFile> multipartFiles) {

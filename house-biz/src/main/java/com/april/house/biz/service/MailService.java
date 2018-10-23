@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MailService {
-    @Autowired
-    private JavaMailSender mailSender;
+    //开发环境不真实发邮件
+    /*@Autowired
+    private JavaMailSender mailSender;*/
 
     @Value("${spring.mail.username}")
     private String from;
@@ -26,7 +27,7 @@ public class MailService {
         message.setSubject(title);
         message.setTo(email);
         message.setText(url);
-        mailSender.send(message);
+//        mailSender.send(message);
     }
 
     @Async

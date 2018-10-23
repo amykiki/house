@@ -5,6 +5,7 @@ import com.april.house.common.model.User;
 import com.april.house.common.util.BeanHelper;
 import com.april.house.common.util.HashUtil;
 import com.april.house.common.util.SecureSaltUtil;
+import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -70,7 +72,6 @@ public class UserService {
         return true;
     }
 
-    @Transactional(rollbackFor = Exception.class)
     public boolean enableUser(String key) {
         String email = registerCache.getIfPresent(key);
         if (StringUtils.isBlank(email)) {
@@ -80,9 +81,26 @@ public class UserService {
         User updateUser = new User();
         updateUser.setEmail(email);
         updateUser.setEnable(1);
-        userMapper.updateByEmail(updateUser);
+        int result = userMapper.updateByEmail(updateUser);
+        if (result == 1) {
+            registerCache.invalidate(key);
+            return true;
+        }
+        return false;
+    }
+
+    public String invalidRegisterCache(String key) {
+        String value = registerCache.getIfPresent(key);
         registerCache.invalidate(key);
-        return true;
+        return value;
+    }
+
+    public String getRegisterCaches() {
+        Map<String, String> caches = registerCache.asMap();
+        caches.forEach((k, v) -> {
+            System.out.println(v + "=" + k);
+        });
+        return Joiner.on("\n").useForNull("").withKeyValueSeparator("=").join(caches);
     }
 
 
