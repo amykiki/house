@@ -12,8 +12,8 @@ import java.util.Map;
 
 public class ResultMsg {
     private static final Logger logger = LogManager.getLogger(ResultMsg.class);
-    private static final String errorMsgKey = "errorMsg";
-    private static final String successMsgKey = "successMsg";
+    public static final String errorMsgKey = "errorMsg";
+    public static final String successMsgKey = "successMsg";
 
     private String errorMsg;
     private String successMsg;

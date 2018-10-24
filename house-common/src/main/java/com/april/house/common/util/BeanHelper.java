@@ -28,7 +28,7 @@ public class BeanHelper {
     }
     public static <T> void onUpdate(T target) {
         try {
-            PropertyUtils.setProperty(target, updateTimeKey, System.currentTimeMillis());
+            PropertyUtils.setProperty(target, updateTimeKey, new Date(System.currentTimeMillis()));
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             logger.error("setProperty " + updateTimeKey + "failed for " + target.getClass());
             return;

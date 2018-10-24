@@ -35,4 +35,10 @@ public class MailService {
         String url = "http://" + domainName + "/accounts/verify?key=" + randomKey;
         sendMail("房产平台激活邮件", url, email);
     }
+
+    @Async
+    public void resetNotify(String email, String randomKey) {
+        String url = "http://" + domainName + "/accounts/reset?key=" + randomKey;
+        sendMail("房产平台密码重置邮件", url, email);
+    }
 }

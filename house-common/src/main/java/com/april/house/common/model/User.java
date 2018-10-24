@@ -17,6 +17,7 @@ public class User implements Serializable {
     private String confirmPasswd;
     private Integer type; //普通用户：1 经纪人：2
     private Date createTime;
+    private Date updateTime;
     private Integer enable;
     private String avatar;
     private MultipartFile avatarFile;
@@ -160,5 +161,13 @@ public class User implements Serializable {
 
     public void setAgencyName(String agencyName) {
         this.agencyName = agencyName;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }
