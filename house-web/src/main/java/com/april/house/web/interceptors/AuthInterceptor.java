@@ -15,10 +15,6 @@ import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
- * @author :  ZouShumin
- * @Project Name :  house
- * @Package Name :  com.april.house.web.interceptors
- * @Description :
  * @Creation Date:  2018-10-24 11:41
  * --------  ---------  --------------------------
  */

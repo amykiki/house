@@ -6,21 +6,22 @@ import com.april.house.common.model.User;
 import com.april.house.common.result.ResultMsg;
 import com.april.house.common.util.UserHelper;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.xml.transform.Result;
 import java.util.List;
 
 @Controller
 @RequestMapping("/accounts")
 public class UserController {
+    Logger logger = LogManager.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
@@ -46,12 +47,17 @@ public class UserController {
 
         //用户验证
         ResultMsg resultMsg = UserHelper.validate(account);
-        if (resultMsg.isSuccess() && userService.addAccount(account)) {
-            modelMap.put("email", account.getEmail());
-            return "/user/accounts/registerEmail";
-        } else {
-            return CommonConstants.REDIRECT + "/accounts/register?" + resultMsg.asUrlParams();
+        try {
+            if (resultMsg.isSuccess() && userService.addAccount(account)) {
+                modelMap.put("email", account.getEmail());
+                return "/user/accounts/registerEmail";
+            } else {
+                return CommonConstants.REDIRECT + "/accounts/register?" + resultMsg.asUrlParams();
+            }
+        } catch (Exception e) {
+            logger.error("注册用户失败", e);
         }
+        return CommonConstants.REDIRECT + "/accounts/register?" + ResultMsg.errorMsg("注册失败").asUrlParams();
     }
 
     @RequestMapping("/verify")

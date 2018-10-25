@@ -8,9 +8,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * @author :  ZouShumin
- * @Project Name :  house
- * @Package Name :  com.april.house.web.config
  * @Description :
  * @Creation Date:  2018-10-24 13:33
  * --------  ---------  --------------------------

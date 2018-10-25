@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 
 /**
- * @author :  ZouShumin
- * @Project Name :  house
- * @Package Name :  com.april.house.web.interceptors
  * @Description :
  * @Creation Date:  2018-10-24 13:23
  * --------  ---------  --------------------------

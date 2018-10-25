@@ -3,9 +3,6 @@ package com.april.house.common.util;
 import com.april.house.common.model.User;
 
 /**
- * @author :  ZouShumin
- * @Project Name :  house
- * @Package Name :  com.april.house.common.util
  * @Description :
  * @Creation Date:  2018-10-24 13:19
  * --------  ---------  --------------------------
