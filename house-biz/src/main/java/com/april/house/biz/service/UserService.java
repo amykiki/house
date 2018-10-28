@@ -14,6 +14,8 @@ import com.google.common.cache.RemovalNotification;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class UserService {
+    private static final Logger logger = LogManager.getLogger(UserService.class);
 
     @Autowired
     private FileService fileService;
@@ -33,7 +36,7 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    @Value(("${file.prefix}"))
+    @Value(("${file.prefix:}"))
     private String imgPrefix;
 
     private final Cache<String, String> registerCache =
@@ -70,6 +73,9 @@ public class UserService {
         List<String> imgList = fileService.getImgPaths(Lists.newArrayList(account.getAvatarFile()));
         if (!imgList.isEmpty()) {
             account.setAvatar(imgList.get(0));
+        } else{
+            logger.error("upload user avatar failed, add user account fail");
+            return false;
         }
         BeanHelper.setDefaultProp(account, User.class);
         BeanHelper.onInsert(account);

@@ -43,7 +43,7 @@
                 enable = #{enable},
             </if>
             <if test="updateTime != null">
-                update_time = #{updateTime},
+               update_time = #{updateTime},
             </if>
         </set>
         where email = #{email}

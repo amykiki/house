@@ -12,7 +12,12 @@
 
         <RollingRandomAccessFile name="FILE-INFO" fileName="logs/house-info.log"
             filePattern="logs/house-info.%d{yyyy-MM-dd-HH}.log">
-            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY" />
+            <!--首先要过滤不符合的日志级别，把不需要的首先DENY掉，然后在ACCEPT需要的日志级别，次序不能颠倒-->
+            <!--WARN及以上级别不许输出，这个配置和logback略有不同-->
+            <!--在组合过滤器中，接受使用NEUTRAL(中立),不被第一个过滤器接受的日志信息，会继续被后面过略器过滤，只有符合所有过滤条件的日志信息，才会被最终写入日志文件中-->
+            <!--logback threshlodFilter指定了哪个级别，就只会输出哪个级别，不用过滤更高级别的日志-->
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
+            <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level [%logger{50}:%L] %tcid - %msg%n" charset="UTF-8" />
             <TimeBasedTriggeringPolicy  interval="1" />
             <DefaultRolloverStrategy max="1"  >
@@ -39,7 +44,8 @@
         
         <RollingRandomAccessFile name="FILE-WARN" fileName="logs/house-warn.log"
             filePattern="logs/house-warn.%d{yyyy-MM-dd-HH}.log">
-            <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY" />
+            <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY" />
+            <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level [%logger{50}:%L] %tcid - %msg%n" charset="UTF-8" />
             <TimeBasedTriggeringPolicy  interval="1" />
              <DefaultRolloverStrategy max="1"  >
@@ -52,7 +58,7 @@
         
         <RollingRandomAccessFile name="FILE-ERROR" fileName="logs/house-error.log"
             filePattern="logs/house-error.%d{yyyy-MM-dd-HH}.log">
-            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY" />
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY" />
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level [%logger{50}:%L] %tcid - %msg%n" charset="UTF-8" />
             <TimeBasedTriggeringPolicy  interval="1" />
             <DefaultRolloverStrategy max="1"  >

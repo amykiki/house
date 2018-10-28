@@ -40,6 +40,7 @@ public class UserController {
      */
     @RequestMapping("/register")
     public String accountsRegister(User account, ModelMap modelMap) {
+
         if (account == null || account.getName() == null) {
             //返回注册页面
             return "/user/accounts/register";

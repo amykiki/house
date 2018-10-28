@@ -1,0 +1,28 @@
+{
+  "properties": [
+    {
+      "name": "domain.name",
+      "type": "java.lang.String",
+      "description": "Description for domain.name."
+    },
+    {
+      "name": "vsftpd.upload.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否支持通过vsftpd上传静态文件."
+    },
+    {
+      "name": "vsftpd.server",
+      "type": "java.lang.String",
+      "description": "vsftpd服务器地址"
+    },
+    {
+      "name": "vsftpd.user",
+      "type": "java.lang.String",
+      "description": "vsftpd服务器用户名"
+    },
+    {
+      "name": "vsftpd.password",
+      "type": "java.lang.String",
+      "description": "vsftpd服务器密码"
+    }
+  ] }
