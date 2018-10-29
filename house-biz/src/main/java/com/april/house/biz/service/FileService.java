@@ -6,6 +6,7 @@ import com.google.common.io.Files;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class FileService {
@@ -29,20 +31,26 @@ public class FileService {
     @Value("${vsftpd.upload.enabled:false}")
     private Boolean vsftpdEnable;
 
+    @Autowired
+    private FTPService ftpService;
+
     // TODO: 2018/10/21
     public List<String> getImgPaths(ArrayList<MultipartFile> multipartFiles) {
         if (Strings.isNullOrEmpty(filePath)) {
             filePath = getResourcePath();
         }
+        String parentDirName = Instant.now().getEpochSecond() + UUID.randomUUID().toString();
 
         List<String> paths = Lists.newArrayList();
+        List<File> files = Lists.newArrayList();
         multipartFiles.forEach(file -> {
             File localFile;
             if (!file.isEmpty()) {
                 try {
-                    localFile = saveToLocal(file, filePath);
+                    localFile = saveToLocal(file, filePath, parentDirName);
                     String path = StringUtils.substringAfterLast(localFile.getAbsolutePath(), filePath);
                     paths.add(path);
+                    files.add(localFile);
                 } catch (IOException e) {
                     logger.error("save file to local fail, filename: " + file.getOriginalFilename());
                 }
@@ -50,14 +58,15 @@ public class FileService {
         });
 
         if (vsftpdEnable) {
-
+            ftpService.uploadFile(parentDirName, files, imgPath);
         }
 
         return paths;
     }
 
-    private File saveToLocal(MultipartFile file, String filePath) throws IOException {
-        File newFile = new File(filePath + "/" + Instant.now().getEpochSecond() + "/" + file.getOriginalFilename());
+    private File saveToLocal(MultipartFile file, String filePath, String parentDirName) throws IOException {
+        File newFile = new File(filePath + File.separator + parentDirName + File.separator + file.getOriginalFilename());
+
         if (!newFile.exists()) {
             newFile.getParentFile().mkdirs();
             newFile.createNewFile();
