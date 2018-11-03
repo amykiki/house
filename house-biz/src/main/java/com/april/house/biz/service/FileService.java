@@ -25,7 +25,7 @@ public class FileService {
     Logger logger = LogManager.getLogger(FileService.class);
     @Value("${file.path:}")
     private String filePath;
-    @Value("${vsftpd.img.path:")
+    @Value("${vsftpd.img.path:}")
     private String imgPath;
 
     @Value("${vsftpd.upload.enabled:false}")
@@ -57,8 +57,12 @@ public class FileService {
             }
         });
 
+        boolean result = false;
         if (vsftpdEnable) {
-            ftpService.uploadFile(parentDirName, files, imgPath);
+             result = ftpService.uploadFile(parentDirName, files, imgPath);
+        }
+        if (!result) {
+            return null;
         }
 
         return paths;

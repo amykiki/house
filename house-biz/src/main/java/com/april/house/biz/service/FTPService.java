@@ -32,7 +32,7 @@ public class FTPService {
 
 
     public boolean uploadFile(String localFileDir, List<File> localFiles, String remotePath) {
-        boolean uploaded = true;
+        boolean uploaded = false;
         String uploadDir = remotePath + "/" + localFileDir;
         String currentFileName = "";
 
@@ -43,10 +43,10 @@ public class FTPService {
                     currentFileName = file.getAbsolutePath();
                     storeFile(file);
                 }
+                uploaded = true;
 
             } catch (Exception e) {
                 logger.error("上传文件[{}]失败", currentFileName, e);
-                uploaded = false;
             } finally {
                 closeConnect();
             }
@@ -71,8 +71,9 @@ public class FTPService {
         List<String> dirs = Splitter.on("/").trimResults().omitEmptyStrings().splitToList(directory);
         dirs.forEach(dir -> {
             try {
-                if (ftpClient.changeWorkingDirectory(dir)) {
+                if (!ftpClient.changeWorkingDirectory(dir)) {
                     ftpClient.makeDirectory(dir);
+                    ftpClient.changeWorkingDirectory(dir);
                 }
             } catch (IOException e) {
                 logger.error("切换工作目录失败{}", dir, e);
@@ -86,6 +87,8 @@ public class FTPService {
         boolean isSuccess = false;
         if (ftpClient == null) {
             ftpClient = new FTPClient();
+        }
+        if (ftpClient != null) {
             int reply;
             try {
                 ftpClient.connect(ftpServer, ftpPort);
