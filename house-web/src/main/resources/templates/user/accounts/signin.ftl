@@ -27,7 +27,7 @@
                     <form role="form" id="form-create-account" method="post" action="/accounts/signin">
                         <div class="form-group">
                             <label for="form-create-account-email">Email:</label>
-                            <input type="text"  name="username" value="${username!}" class="form-control" id="form-create-account-email" required>
+                            <input type="text"  name="email" value="${email!}" class="form-control" id="form-create-account-email" required>
                         </div><!-- /.form-group -->
                         <div class="form-group">
                             <label for="form-create-account-password">密码:</label>

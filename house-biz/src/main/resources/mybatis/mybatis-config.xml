@@ -11,14 +11,19 @@
         <setting name="defaultExecutorType" value="REUSE"/>
         <!--事务超时时间,单位秒-->
         <setting name="defaultStatementTimeout" value="10"/>
+        <setting name="logImpl" value="LOG4J2"/>
     </settings>
 
     <typeAliases>
         <package name="com.april.house.common.model"/>
     </typeAliases>
 
-    <mappers>
+<!--    <mappers>
         <mapper resource="mapper/user.xml"/>
         <mapper resource="mapper/house.xml"/>
-    </mappers>
+        <mapper resource="mapper/agency.xml"/>
+        <mapper resource="mapper/community.xml"/>
+        <mapper resource="mapper/houseMsg.xml"/>
+        <mapper resource="mapper/houseUser.xml"/>
+    </mappers>-->
 </configuration>

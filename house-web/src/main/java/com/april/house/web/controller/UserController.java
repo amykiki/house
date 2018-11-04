@@ -101,11 +101,11 @@ public class UserController {
 
     @RequestMapping ("/signin")
     public String signin(HttpServletRequest req) {
-        String username = req.getParameter("username");
+        String email = req.getParameter("username");
         String password = req.getParameter("password");
         String target = req.getParameter("target");
 
-        if (username == null || password == null) {
+        if (email == null || password == null) {
             //返回视图，内部是用了forward的形式
             //因此如果本次请求经过了拦截器，那么下次请求就不会再经过拦截器了
             //target就不会被authInterceptor处理，不会被自动放入request attribute中
@@ -115,13 +115,13 @@ public class UserController {
         }
 
         //校验用户名
-        User user = userService.auth(username, password);
+        User user = userService.auth(email, password);
         if (user == null) {
             //redirect是不同请求，因此会再次通过拦截器
             //不需要手动把参数放入req attribute中
             return CommonConstants.REDIRECT + "/accounts/signin?"
                     + "target=" +target
-                    + "&username=" + username
+                    + "&email=" + email
                     + "&" + ResultMsg.errorMsg("用户名或密码错误").asUrlParams();
         }else {
             HttpSession session = req.getSession(true);

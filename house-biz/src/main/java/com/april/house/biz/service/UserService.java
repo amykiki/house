@@ -147,9 +147,9 @@ public class UserService {
         return list;
     }
 
-    public User auth(String username, String password) {
+    public User auth(String email, String password) {
         User query = new User();
-        query.setEmail(username);
+        query.setEmail(email);
         List<User> users = getUserByQuery(query);
         if (!users.isEmpty()) {
             User user = users.get(0);
