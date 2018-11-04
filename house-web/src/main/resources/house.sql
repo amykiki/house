@@ -111,6 +111,14 @@ create table `comment` (
   primary key (`id`)
 )engine=InnoDB auto_increment=17 default charset=utf8;
 
+# 城市表
+create table `city` (
+  `id` int(11) unsigned not null auto_increment,
+  `city_name` varchar(11) not null default '' comment '城市名称',
+  `city_code` varchar(10) not null default '' comment '城市编码',
+  primary key (`id`)
+)engine=InnoDB default charset=utf8;
+ 
 # 创建数据库并指定编码集
 # CREATE DATABASE `houses` CHARACTER SET utf8 COLLATE utf8_general_ci;
 
