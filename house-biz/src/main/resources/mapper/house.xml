@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.april.house.biz.mapper.HouseMapper">
+    <!--所有关于house查询，house都取别名为h-->
+    <sql id="houseCondition">
+        <!-- 查看某个用户下的关联房产，可能是用户售卖的 type = 1， 也可能是用户收藏 type =2-->
+        <if test="house.userId != null and house.userId != 0">
+            inner join
+            (select house_id, user_id from house_user
+            <where>
+                user_id = #{house.userId}
+                <!-- 收藏-->
+                <if test="house.bookmarked != null and house.bookmarked == true">
+                    and type = 2
+                </if>
+                <!-- 售卖-->
+                <if test="house.bookmarked != null and house.bookmarked == false">
+                    and type = 1
+                </if>
+            </where>
+            ) b
+            on h.id = b.house_id
+        </if>
+        <where>
+            <!-- 只显示上架的房产 -->
+            state = 1
+            <if test="house.id != null and house.id != 0">
+                and h.id = #{house.id}
+            </if>
+            <if test="house.type != null">
+                and h.type = #{house.type}
+            </if>
+            <if test="house.communityId != null">
+                and h.community_id = #{house.communityId}
+            </if>
+            <if test="house.name != null and house.name != ''">
+                <bind name="pattern1" value="'%' + house.name + '%'"/>
+                and h.name like #{pattern1}
+            </if>
+            <if test="house.ids != null and house.ids.size() > 0">
+                and h.id in
+                <foreach collection="house.id" item="item" index="index" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </sql>
+    <sql id="houseField">
+        h.name,
+        h.type,
+        h.price,
+        h.images,
+        h.area,
+        h.beds,
+        h.baths,
+        h.rating,
+        h.remarks,
+        h.properties,
+        h.floor_plan,
+        h.tags,
+        h.create_time,
+        h.city_id,
+        h.community_id,
+        h.address,
+        h.state
+    </sql>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into house (
+            `name`,
+            type,
+            price,
+            images,
+            area,
+            beds,
+            baths,
+            rating,
+            remarks,
+            properties,
+            floor_plan,
+            tags,
+            create_time,
+            city_id,
+            community_id,
+            address,
+            state)
+        values (
+            #{name},
+            #{type},
+            #{price},
+            #{images},
+            #{areas},
+            #{beds},
+            #{baths},
+            #{rating},
+            #{remarkds},
+            #{properties},
+            #{floorPlan},
+            #{tags},
+            #{createTime},
+            #{cityId},
+            #{communityId},
+            #{address},
+            #{state}
+        )
+    </insert>
+    <update id="updateHouseRating">
+        update house
+        set rating = #{rating}
+        where id = #{id}
+    </update>
+    <!--下架房产-->
+    <update id="downHouse">
+        update house
+        set state = 2
+        where id = #{id}
+    </update>
+
+    <!-- 根据条件查询获取分页总数-->
+    <select id="selectPageCount" resultType="java.lang.Long">
+        select count(id)
+        from house h
+        <include refid="houseCondition"/>
+    </select>
+
+    <!--根据条件查询分页内容-->
+    <select id="selectPageHouse" resultType="house">
+        select <include refid="houseField"/>
+        from house h
+        <include refid="houseCondition"/>
+        <if test="house.sort != null and house.sort != ''">
+            order by h.${house.sort}
+        </if>
+        <if test="pageParams.offset != null and pageParams.limit != null">
+            limit #{pageParams.offset}, #{pageParams.limit}
+        </if>
+        <if test="pageParams.offset == null and pageParams.limit != null">
+            limit  #{pageParams.limit}
+        </if>
+    </select>
+</mapper>

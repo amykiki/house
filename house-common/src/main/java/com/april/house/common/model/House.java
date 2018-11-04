@@ -40,6 +40,7 @@ public class House implements Serializable {
     private Integer cityId;
     private Integer communityId;
     private String address;
+    /** 1-上架 2-下架 */
     private Integer state;
 
     /** 非数据库字段 */
@@ -54,13 +55,15 @@ public class House implements Serializable {
     private List<MultipartFile> floorPlanFiles;
     private String priceStr;
     private String typeStr;
+    
+    /** 以下字段用于sql查询条件 */
     /** 关联用户id */
     private Long userId;
     /** 是否被收藏 */
     private Boolean bookmarked;
     private List<Long> ids;
-    /** 排序: price_desc, price_asc, time_desc */
-    private String sort = "time_desc";
+    /** 用于sql排序: price_desc, price_asc, time_desc */
+    private String sort = "time desc";
 
 
 

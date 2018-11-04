@@ -14,10 +14,11 @@
     </settings>
 
     <typeAliases>
-        <typeAlias type="com.april.house.common.model.User" alias="user"/>
+        <package name="com.april.house.common.model"/>
     </typeAliases>
 
     <mappers>
         <mapper resource="mapper/user.xml"/>
+        <mapper resource="mapper/house.xml"/>
     </mappers>
 </configuration>
