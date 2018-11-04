@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.april.house.biz.mapper.AgencyMapper">
+    <sql id="agencyField">
+        id,
+        name,
+        address,
+        phone,
+        email,
+        about_us,
+        mobile,
+        web_site
+    </sql>
+    <sql id="agencyCondition">
+        <if test="${id} != null and ${id} != ''">
+            and id = #{id}
+        </if>
+        <if test="${email} != null and ${email} != ''">
+            and email = #{email}
+        </if>
+        <if test="name != null and name != ''">
+            and name like concat('%', #{name}, '%' )
+        </if>
+        <if test="address != null and address != ''">
+            and address like concat('%', #{address}, '%' )
+        </if>
+    </sql>
+    <insert id="insert">
+        insert into agency (
+            `name`,
+            address,
+            phone,
+            email,
+            about_us,
+            mobile,
+            web_site
+        )
+        values(
+            #{name},
+            #{address},
+            #{phone},
+            #{email},
+            #{aboutUs},
+            #{mobile},
+            #{webSite}
+        )
+    </insert>
+    <select id="selectAgency" resultType="agency">
+        select <include refid="agencyField"/>
+        from agency
+        <where>
+            <include refid="agencyCondition">
+                <property name="id" value="id"/>
+                <property name="email" value="email"/>
+            </include>
+        </where>
+    </select>
+</mapper>
