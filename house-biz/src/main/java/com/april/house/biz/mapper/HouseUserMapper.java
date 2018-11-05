@@ -4,7 +4,6 @@ import com.april.house.common.model.HouseUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-@Mapper
 public interface HouseUserMapper {
     int insertHouseUser(HouseUser houseUser);
     int deleteHouseUser(@Param("houseId") Long houseId, @Param("userId") Long userId, @Param("type") Integer type);

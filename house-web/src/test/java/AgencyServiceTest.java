@@ -1,18 +1,12 @@
-import com.april.house.HouseApplication;
 import com.april.house.biz.service.AgencyService;
 import com.april.house.common.model.Agency;
 import com.github.pagehelper.PageInfo;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = HouseApplication.class)
-public class AgencyServiceTest {
+public class AgencyServiceTest extends BaseServiceTest {
     @Autowired
     private AgencyService agencyService;
 
