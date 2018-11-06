@@ -9,8 +9,46 @@
         <result column="content" jdbcType="VARCHAR" property="content"/>
         <result column="house_id" jdbcType="BIGINT" property="houseId"/>
         <result column="blog_id" jdbcType="INTEGER" property="blogId"/>
-        <result column="type" jdbcType="BIT" property="type"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
         <result column="user_id" jdbcType="BIGINT" property="userId"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
     </resultMap>
+    <sql id="Base_Column_List">
+        c.id,
+        c.content,
+        c.house_id,
+        c.blog_id,
+        c.type,
+        c.user_id,
+        c.create_time
+    </sql>
+
+    <resultMap id="baseCommentResult" type="comment" autoMapping="true">
+        <id property="id" column="id"/>
+    </resultMap>
+
+    <resultMap id="userCommentResult" type="comment" extends="baseCommentResult">
+        <result property="userName" column="user_name"/>
+        <result property="avatar" column="user_avatar"/>
+    </resultMap>
+
+    <select id="selectHouseComments" resultMap="userCommentResult">
+        select <include refid="Base_Column_List"/>, u.name user_name, u.avatar user_avatar
+        from comment c
+        inner join user u
+        on c.user_id = u.id
+        where c.type = 1 and c.house_id = #{houseId}
+        order by create_time desc
+        limit #{size}
+    </select>
+
+    <select id="selectBlogComments" resultMap="userCommentResult">
+        select <include refid="Base_Column_List"/>, u.name user_name, u.avatar user_avatar
+        from comment c
+        inner join user u
+        on c.user_id = u.id
+        where c.type = 2 and c.blog_id = #{blogId}
+        order by c.create_time desc
+        limit #{size}
+    </select>
 </mapper>

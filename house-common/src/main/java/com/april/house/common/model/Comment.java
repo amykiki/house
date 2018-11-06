@@ -3,12 +3,12 @@ package com.april.house.common.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
 import javax.persistence.*;
+import java.util.Date;
 
+@Table(name = "`comment`")
 @Getter
 @Setter
-@Table(name = "`comment`")
 public class Comment {
     @Id
     @Column(name = "`id`")
@@ -37,7 +37,7 @@ public class Comment {
      * 类型1-房产评论 2-博客评论
      */
     @Column(name = "`type`")
-    private Boolean type;
+    private Integer type;
 
     /**
      * 评论用户
@@ -51,11 +51,9 @@ public class Comment {
     @Column(name = "`create_time`")
     private Date createTime;
 
-    /** 非数据库字段 */
     @Transient
     private String userName;
     @Transient
     private String avatar;
-
 
 }

@@ -3,7 +3,8 @@
     PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
     "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-    <context id="Mysql"  targetRuntime="MyBatis3Simple" defaultModelType="flat">
+    <!--<context id="Mysql"  targetRuntime="MyBatis3Simple" defaultModelType="flat">-->
+    <context id="Mysql" targetRuntime="MyBatis3" defaultModelType="flat">
         <property name="javaFileEncoding" value="UTF-8"/>
         <!--配置是否使用通用 Mapper 自带的注释扩展，默认 true-->
         <!--<property name="useMapperCommentGenerator" value="false"/>-->
@@ -18,7 +19,7 @@
         </plugin>
         
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/houses"
+                        connectionURL="jdbc:mysql://localhost:3306/houses?tinyInt1isBit=false"
                         userId="root"
                         password="123@Aa456">
         </jdbcConnection>
@@ -33,12 +34,19 @@
         <javaClientGenerator type="XMLMAPPER"
                              targetPackage="com.april.house.biz.mapper"
                              targetProject="../house-biz/src/main/java"/>
-        <table tableName="blog">
+       <!-- <table tableName="blog">
             <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>
+        </table>-->
 
-        <table tableName="comment">
+        <table tableName="comment"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+
             <generatedKey column="id" sqlStatement="JDBC"/>
+            <columnOverride column="type" javaType="Integer"/>
         </table>
     </context>
 </generatorConfiguration>

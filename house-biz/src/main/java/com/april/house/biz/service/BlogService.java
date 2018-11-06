@@ -21,7 +21,7 @@ public class BlogService {
         return blogMapper.insert(blog);
     }
 
-    public PageInfo<Blog> queryPageBlog(Blog blog, PageParams pageParams) {
+    public List<Blog> queryBlogs(Blog blog) {
         Example example = selectField();
         Example.Criteria criteria = example.createCriteria();
         if (blog.getId() != null && blog.getId() != 0) {
@@ -37,11 +37,18 @@ public class BlogService {
         }
 
         if (StringUtils.isNotBlank(blog.getTags())) {
-            criteria.andCondition("find_in_set(" + blog.getTags() + ", tags)");
+            criteria.andCondition("find_in_set('" + blog.getTags() + "', tags)");
         }
 
-        PageHelper.startPage(pageParams.getPageNum(), pageParams.getPageSize());
+        if (blog.getCreateTime() != null) {
+            criteria.andLessThanOrEqualTo("createTime", blog.getCreateTime());
+        }
         List<Blog> blogs = queryBlogs(example);
+        return blogs;
+    }
+    public PageInfo<Blog> queryPageBlog(Blog blog, PageParams pageParams) {
+        PageHelper.startPage(pageParams.getPageNum(), pageParams.getPageSize());
+        List<Blog> blogs = queryBlogs(blog);
         return new PageInfo<Blog>(blogs);
     }
 
