@@ -1,5 +1,7 @@
 package com.april.house.common.model;
 
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +22,7 @@ public class House implements Serializable {
     private Long id;
     private Integer type;
     private Integer price;
+    /** 房产名称 */
     private String name;
     private String images;
     /** 面积 */
@@ -65,8 +68,21 @@ public class House implements Serializable {
     /** 用于sql排序: price_desc, price_asc, time_desc */
     private String sort = "time desc";
 
+    public void setImages(String images) {
+        this.images = images;
+        if (!Strings.isNullOrEmpty(images)) {
+            List<String> imageList = Splitter.on(",").splitToList(images);
+            if (imageList.size() > 0) {
+                this.firstImg = imageList.get(0);
+                this.imageList = imageList;
+            }
+        }
+    }
 
-
-
-
+    public void setFloorPlan(String floorPlan) {
+        this.floorPlan = floorPlan;
+        if (!Strings.isNullOrEmpty(floorPlan)) {
+            this.floorPlanList = Splitter.on(",").splitToList(floorPlan);
+        }
+    }
 }

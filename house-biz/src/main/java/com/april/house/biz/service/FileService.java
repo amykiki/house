@@ -35,7 +35,7 @@ public class FileService {
     private FTPService ftpService;
 
     // TODO: 2018/10/21
-    public List<String> getImgPaths(ArrayList<MultipartFile> multipartFiles) {
+    public List<String> getImgPaths(List<MultipartFile> multipartFiles) {
         if (Strings.isNullOrEmpty(filePath)) {
             filePath = getResourcePath();
         }

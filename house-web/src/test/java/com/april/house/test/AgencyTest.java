@@ -1,3 +1,5 @@
+package com.april.house.test;
+
 import com.april.house.biz.service.AgencyService;
 import com.april.house.common.model.Agency;
 import com.github.pagehelper.PageInfo;
@@ -6,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class AgencyServiceTest extends BaseServiceTest {
+public class AgencyTest extends BaseTest {
     @Autowired
     private AgencyService agencyService;
 

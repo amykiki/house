@@ -1,3 +1,5 @@
+package com.april.house.test;
+
 import com.april.house.biz.service.CommentService;
 import com.april.house.common.model.Comment;
 import org.junit.Test;
@@ -5,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class CommentServiceTest extends BaseServiceTest {
+public class CommentTest extends BaseTest {
     @Autowired
     private CommentService commentService;
 

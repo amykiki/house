@@ -1,3 +1,5 @@
+package com.april.house.test;
+
 import com.april.house.biz.service.BlogService;
 import com.april.house.common.model.Blog;
 import com.april.house.common.util.DateTimeUtil;
@@ -7,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
 import java.util.List;
 
-public class BlogServiceTest extends BaseServiceTest {
+public class BlogTest extends BaseTest {
     @Autowired
     private BlogService blogService;
 
