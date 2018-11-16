@@ -2,10 +2,12 @@ package com.april.house.biz.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class MailService {
@@ -18,6 +20,9 @@ public class MailService {
 
     @Value(("${domain.name}"))
     private String domainName;
+
+    @Autowired
+    private RedisTemplate<Object, Object> redisTemplate;
 
     //发送邮件
     @Async
@@ -40,5 +45,19 @@ public class MailService {
     public void resetNotify(String email, String randomKey) {
         String url = "http://" + domainName + "/accounts/reset?key=" + randomKey;
         sendMail("房产平台密码重置邮件", url, email);
+    }
+
+    //使用redis代替真实的email，只供本地测试用
+    @Async
+    public void sendRedisMail(String title, String url, String email) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(from);
+        message.setSubject(title);
+        message.setTo(email);
+        message.setText(url);
+
+        String key = "Email-To-" + email;
+        redisTemplate.opsForValue().set(key, message, 1L, TimeUnit.DAYS);
+
     }
 }
