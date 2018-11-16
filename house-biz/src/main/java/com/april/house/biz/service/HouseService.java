@@ -1,11 +1,11 @@
 package com.april.house.biz.service;
 
+import com.april.house.biz.mapper.CommunityMapper;
 import com.april.house.biz.mapper.HouseMapper;
+import com.april.house.biz.mapper.HouseMsgMapper;
 import com.april.house.biz.mapper.HouseUserMapper;
 import com.april.house.common.enums.HouseUserTypeEnum;
-import com.april.house.common.model.House;
-import com.april.house.common.model.HouseUser;
-import com.april.house.common.model.User;
+import com.april.house.common.model.*;
 import com.april.house.common.page.PageParams;
 import com.april.house.common.util.BeanHelper;
 import com.github.pagehelper.PageHelper;
@@ -14,16 +14,22 @@ import com.google.common.base.Joiner;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class HouseService {
     @Autowired
     private HouseMapper houseMapper;
     @Autowired
     private HouseUserMapper houseUserMapper;
+    @Autowired
+    private CommunityMapper communityMapper;
+    @Autowired
+    private HouseMsgMapper houseMsgMapper;
     @Autowired
     private FileService fileService;
 
@@ -42,13 +48,25 @@ public class HouseService {
         return houses;
     }
 
-    // TODO: 2018/11/10  
     public PageInfo<House> queryHouseByPage(House query, PageParams pageParams) {
-
         PageHelper.startPage(pageParams.getPageNum(), pageParams.getPageSize());
-        return null;
+        List<House> queryHouses = queryHouses(query);
+        PageInfo<House> pageInfo = new PageInfo<>(queryHouses);
+        return pageInfo;
 
     }
+
+    public House queryOneHouse(Long id) {
+        House query = new House();
+        query.setId(id);
+        List<House> houses = queryHouses(query);
+        if (!houses.isEmpty()) {
+            return houses.get(0);
+        }
+
+        return null;
+    }
+
 
     /**
      * 添加房屋图片
@@ -76,7 +94,6 @@ public class HouseService {
         bindUser2House(house.getId(), user.getId(), false);
     }
 
-
     @Transactional
     public void bindUser2House(Long houseId, Long userId, boolean collect) {
         HouseUser existHouseUser = houseUserMapper.selectHouseUser(userId, houseId, collect ? HouseUserTypeEnum.BOOKMARK.getCode() : HouseUserTypeEnum.SOLD.getCode());
@@ -93,10 +110,36 @@ public class HouseService {
         houseUserMapper.insertHouseUser(houseUser);
     }
 
+    @Transactional
+    public void unbindUser2House(Long id, Long userId, HouseUserTypeEnum type) {
+        if (HouseUserTypeEnum.SOLD.equals(type)) {
+            houseMapper.downHouse(id);
+        } else {
+            houseUserMapper.deleteHouseUser(id, userId, type.getCode());
+        }
+
+    }
+
     public HouseUser getSaleHouseUser(Long houseId) {
         HouseUser houseUser = houseUserMapper.selectSaleHouseUser(houseId);
         return houseUser;
     }
+
+    public List<Community> getAllCommunities() {
+        Community community = new Community();
+        return communityMapper.selectCommunity(community);
+    }
+
+
+    @Transactional
+    public void addUserMsg(UserMsg userMsg) {
+        BeanHelper.onInsert(userMsg);
+        houseMsgMapper.insertUserMsg(userMsg);
+
+    }
+
+
+
 
 
 }

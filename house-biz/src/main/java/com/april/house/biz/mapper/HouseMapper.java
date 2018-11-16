@@ -1,9 +1,7 @@
 package com.april.house.biz.mapper;
 
 import com.april.house.common.model.House;
-import com.april.house.common.model.HouseUser;
 import com.april.house.common.page.PageParams;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
