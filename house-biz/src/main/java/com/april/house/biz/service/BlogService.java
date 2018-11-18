@@ -5,7 +5,11 @@ import com.april.house.common.model.Blog;
 import com.april.house.common.page.PageParams;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.base.Splitter;
+import com.google.common.collect.Lists;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -69,6 +73,15 @@ public class BlogService {
     }
     private List<Blog> queryBlogs(Example example) {
         example.orderBy("createTime").desc();
-        return blogMapper.selectByExample(example);
+        List<Blog> blogs = blogMapper.selectByExample(example);
+        if (CollectionUtils.isNotEmpty(blogs)) {
+            blogs.forEach(blog -> {
+                String stripped = Jsoup.parse(blog.getContent()).text();
+                blog.setDigest(stripped.substring(0, Math.min(stripped.length(), 40)));
+                String tags = blog.getTags();
+                blog.getTagList().addAll(Lists.newArrayList(Splitter.on(",").split(tags)));
+            });
+        }
+        return blogs;
     }
 }

@@ -5,6 +5,7 @@ import com.april.house.common.enums.CommentTypeEnum;
 import com.april.house.common.model.Comment;
 import com.april.house.common.util.BeanHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,8 @@ import java.util.List;
 public class CommentService {
     @Autowired
     private CommentMapper commentMapper;
+    @Value("${file.prefix}")
+    private String imgPrefix;
 
     @Transactional(rollbackFor = Exception.class)
     public int addHouseComment(Long houseId, String content, Long userId) {
@@ -42,9 +45,17 @@ public class CommentService {
     }
 
     public List<Comment> getBlogComments(Integer blogId, int size) {
-        List<Comment> comments = commentMapper.selectBlogComments(blogId, size);
+        List<Comment> comments = commentMapper.selectCommentsWithType(CommentTypeEnum.BLOG_CMT.getCode(), blogId, size);
         return comments;
     }
 
+    public List<Comment> getHouseComments(Integer houseId, int size) {
+        List<Comment> comments = commentMapper.selectCommentsWithType(CommentTypeEnum.HOUSE_CMT.getCode(), houseId, size);
+        return comments;
+    }
+
+    private void setUserAvatar(List<Comment> list) {
+        list.forEach(c -> c.setAvatar(imgPrefix + c.getAvatar()));
+    }
 
 }

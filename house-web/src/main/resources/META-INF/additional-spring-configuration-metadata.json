@@ -24,5 +24,20 @@
       "name": "vsftpd.password",
       "type": "java.lang.String",
       "description": "vsftpd服务器密码"
+    },
+    {
+      "name": "thread.pool.core-pool-size",
+      "type": "java.lang.String",
+      "description": "Description for thread.pool.core-pool-size."
+    },
+    {
+      "name": "thread.pool.max-pool-size",
+      "type": "java.lang.String",
+      "description": "Description for thread.pool.max-pool-size."
+    },
+    {
+      "name": "thread.pool.queue-capacity",
+      "type": "java.lang.String",
+      "description": "Description for thread.pool.queue-capacity."
     }
   ] }

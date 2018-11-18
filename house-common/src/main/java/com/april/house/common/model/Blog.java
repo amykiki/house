@@ -1,10 +1,12 @@
 package com.april.house.common.model;
 
+import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -49,4 +51,7 @@ public class Blog {
     /** 摘要 */
     @Transient
     private String digest;
+
+    @Transient
+    private List<String> tagList = Lists.newArrayList();
 }

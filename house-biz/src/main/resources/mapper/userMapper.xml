@@ -27,6 +27,21 @@
             #{enable}
         )
     </insert>
+
+    <sql id="userBaseFields">
+        u.id,
+        u.name,
+        u.phone,
+        u.email,
+        u.aboutme,
+        u.passwd,
+        u.salt,
+        u.avatar,
+        u.type,
+        u.create_time,
+        u.enable,
+        u.agency_id
+    </sql>
     <update id="updateByEmail">
         update user
         <set>
@@ -60,7 +75,8 @@
     </delete>
 
     <select id="selectUsersByQuery" resultType="user">
-        select * from user
+        select <include refid="userBaseFields"/>
+        from user u
         <where>
             <if test="id != null and id != 0">
                 id = #{id}
@@ -98,4 +114,22 @@
         from user
         <include refid="agentQueryCondition"/>
     </select>
+
+    <resultMap id="agentDetail" type="user">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="aboutme" property="aboutme"/>
+        <result column="avatar" property="avatar"/>
+        <result column="create_time" property="createTime"/>
+        <result column="agency_id" property="agencyId"/>
+        <result column="a_agency_name" property="agencyName"/>
+    </resultMap>
+
+    <select id="selectAgentDetail" resultMap="agentDetail">
+        select <include refid="userBaseFields"/> , a.name as a_agency_name from user u left join agency a on u.agency_id = a.id
+        where u.id = #{agentId} and u.type = 2
+    </select>
+
 </mapper>

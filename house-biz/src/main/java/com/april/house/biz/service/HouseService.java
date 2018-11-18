@@ -32,12 +32,21 @@ public class HouseService {
     private HouseMsgMapper houseMsgMapper;
     @Autowired
     private FileService fileService;
+    @Autowired
+    private MailService mailService;
+    @Autowired
+    private AgencyService agencyService;
 
 
     @Value("${file.prefix}")
     private String imgPrefix;
 
 
+    /**
+     * 根据条件查询房产信息
+     * @param query
+     * @return
+     */
     public List<House> queryHouses(House query) {
         List<House> houses = houseMapper.queryHouses(query);
         houses.forEach(h -> {
@@ -48,6 +57,12 @@ public class HouseService {
         return houses;
     }
 
+    /**
+     * 根据条件查询房产信息并分页
+     * @param query
+     * @param pageParams
+     * @return
+     */
     public PageInfo<House> queryHouseByPage(House query, PageParams pageParams) {
         PageHelper.startPage(pageParams.getPageNum(), pageParams.getPageSize());
         List<House> queryHouses = queryHouses(query);
@@ -94,10 +109,33 @@ public class HouseService {
         bindUser2House(house.getId(), user.getId(), false);
     }
 
+    /**
+     * 更新房产评分
+     * @param id
+     * @param rating
+     */
+    @Transactional
+    public void updateRating(Long id, Double rating) {
+        House house = queryOneHouse(id);
+        Double oldRating = house.getRating();
+        Long ratingNums = house.getRatingNums();
+        Double newRating = oldRating.equals(0D) ? rating : Math.min((oldRating * ratingNums + rating) / (ratingNums + 1), 5);
+        House updateHouse = new House();
+        updateHouse.setRating(newRating);
+        updateHouse.setRatingNums(ratingNums + 1);
+        updateHouse.setId(id);
+        BeanHelper.onUpdate(updateHouse);
+        houseMapper.updateHouseRating(updateHouse);
+    }
+
+    /**绑定用户与房产
+     * @param houseId
+     * @param userId
+     * @param collect
+     */
     @Transactional
     public void bindUser2House(Long houseId, Long userId, boolean collect) {
         HouseUser existHouseUser = houseUserMapper.selectHouseUser(userId, houseId, collect ? HouseUserTypeEnum.BOOKMARK.getCode() : HouseUserTypeEnum.SOLD.getCode());
-
         if (existHouseUser != null) {
             return;
         }
@@ -110,6 +148,12 @@ public class HouseService {
         houseUserMapper.insertHouseUser(houseUser);
     }
 
+    /**
+     * 解绑用户与房产
+     * @param id
+     * @param userId
+     * @param type
+     */
     @Transactional
     public void unbindUser2House(Long id, Long userId, HouseUserTypeEnum type) {
         if (HouseUserTypeEnum.SOLD.equals(type)) {
@@ -125,6 +169,10 @@ public class HouseService {
         return houseUser;
     }
 
+    /**
+     * 查询所有社区信息
+     * @return
+     */
     public List<Community> getAllCommunities() {
         Community community = new Community();
         return communityMapper.selectCommunity(community);
@@ -135,8 +183,10 @@ public class HouseService {
     public void addUserMsg(UserMsg userMsg) {
         BeanHelper.onInsert(userMsg);
         houseMsgMapper.insertUserMsg(userMsg);
-
+        User agent = agencyService.getAgentDetail(userMsg.getAgentId());
+        mailService.sendRedisMail("来自用户" + userMsg.getEmail() + "留言", userMsg.getMsg(), agent.getEmail());
     }
+
 
 
 

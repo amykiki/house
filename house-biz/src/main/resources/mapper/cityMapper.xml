@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.april.house.biz.mapper.CityMapper">
+    <sql id="cityBaseFields">
+        c.id,
+        c.city_name,
+        c.city_code
+    </sql>
+    <select id="getAllCities" resultType="city">
+        select <include refid="cityBaseFields"/> from city c
+    </select>
+</mapper>

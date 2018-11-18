@@ -20,5 +20,8 @@ public interface UserMapper {
 
     List<User> selectAgent(@Param("user") User user);
 
+    User selectAgentDetail(Long agentId);
+
+
 
 }

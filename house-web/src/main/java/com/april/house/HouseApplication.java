@@ -5,16 +5,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import tk.mybatis.spring.annotation.MapperScan;
 
-import java.util.concurrent.Executor;
-
 @SpringBootApplication
-@EnableAsync
 @MapperScan(basePackages = "com.april.house.biz.mapper")
+//开启定时任务
+@EnableScheduling
 public class HouseApplication {
     public static void main(String[] args) {
         Logger logger = LogManager.getLogger(HouseApplication.class);
@@ -22,8 +19,4 @@ public class HouseApplication {
         SecureSaltUtil.genSalt();
     }
 
-    @Bean(name = "threadPoolTaskExecutor")
-    public Executor threadPoolTaskExecutor() {
-        return new ThreadPoolTaskExecutor();
-    }
 }

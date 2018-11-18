@@ -1,10 +1,12 @@
 package com.april.house.common.model;
 
+import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 import java.util.Date;
 
+@ToString(exclude = {"passwd", "salt", "confirmPasswd", "avatarFile", "newPassword"})
 public class User implements Serializable {
     private static final long serialVersionUID = -4002563135417500301L;
 

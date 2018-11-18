@@ -33,6 +33,8 @@ public class House implements Serializable {
     private Integer baths;
     /** 评分 */
     private Double rating;
+    /** 平均总人数 */
+    private Long ratingNums;
 
     private String remarks;
     private String properties;

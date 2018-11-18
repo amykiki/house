@@ -54,6 +54,7 @@
         h.beds,
         h.baths,
         h.rating,
+        h.rating_nums,
         h.remarks,
         h.properties,
         h.floor_plan,
@@ -74,6 +75,7 @@
             beds,
             baths,
             rating,
+            rating_nums,
             remarks,
             properties,
             floor_plan,
@@ -92,6 +94,7 @@
             #{beds},
             #{baths},
             #{rating},
+            #{ratingNums},
             #{remarkds},
             #{properties},
             #{floorPlan},
@@ -105,7 +108,7 @@
     </insert>
     <update id="updateHouseRating">
         update house
-        set rating = #{rating}
+        set rating = #{rating}, rating_nums = #{ratingNums}
         where id = #{id}
     </update>
     <!--下架房产-->

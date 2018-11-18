@@ -7,8 +7,9 @@ import tk.mybatis.mapper.common.Mapper;
 import java.util.List;
 
 public interface CommentMapper extends Mapper<Comment> {
-    List<Comment> selectHouseComments(@Param("houseId") Long houseId, @Param("size") int size);
+//    List<Comment> selectHouseComments(@Param("houseId") Long houseId, @Param("size") int size);
 
-    List<Comment> selectBlogComments(@Param("blogId") Integer blogId, @Param("size") int size);
+    List<Comment> selectCommentsWithType(@Param("type") Integer type, @Param("typeId") Integer typeId, @Param("size") int size);
+
 
 }

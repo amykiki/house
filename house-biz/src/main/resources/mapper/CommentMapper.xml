@@ -31,7 +31,7 @@
         <result property="userName" column="user_name"/>
         <result property="avatar" column="user_avatar"/>
     </resultMap>
-
+<!--
     <select id="selectHouseComments" resultMap="userCommentResult">
         select <include refid="Base_Column_List"/>, u.name user_name, u.avatar user_avatar
         from comment c
@@ -40,14 +40,23 @@
         where c.type = 1 and c.house_id = #{houseId}
         order by create_time desc
         limit #{size}
-    </select>
+    </select>-->
 
-    <select id="selectBlogComments" resultMap="userCommentResult">
+    <select id="selectCommentsWithType" resultMap="userCommentResult">
         select <include refid="Base_Column_List"/>, u.name user_name, u.avatar user_avatar
         from comment c
         inner join user u
         on c.user_id = u.id
-        where c.type = 2 and c.blog_id = #{blogId}
+        <where>
+            <choose>
+                <when test="type != null and type == 1">
+                    c.type = 1 and c.house_id = #{typeId}
+                </when>
+                <otherwise>
+                    c.type = 2 and c.blog_id = #{typeId}
+                </otherwise>
+            </choose>
+        </where>
         order by c.create_time desc
         limit #{size}
     </select>

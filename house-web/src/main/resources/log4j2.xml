@@ -7,7 +7,7 @@
              <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
             <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY" />
             <!-- 输出日志的格式-->
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-6.6t] %-5level [%-40.40logger{1.}:%5.5L]  - %msg%n" charset="UTF-8"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-20.20t] %-5level [%-40.40logger{1.}:%5.5L]  - %msg%n" charset="UTF-8"/>
         </Console>
 
         <RollingRandomAccessFile name="FILE-INFO" fileName="logs/house-info.log"
