@@ -45,7 +45,7 @@ public class CommentService {
     }
 
     public List<Comment> getBlogComments(Integer blogId, int size) {
-        List<Comment> comments = commentMapper.selectCommentsWithType(CommentTypeEnum.BLOG_CMT.getCode(), blogId, size);
+        List<Comment> comments = commentMapper.selectCommentsWithType(CommentTypeEnum.BLOG_CMT.getCode(), blogId.longValue(), size);
         return comments;
     }
 
