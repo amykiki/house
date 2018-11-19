@@ -224,7 +224,7 @@
 
 <#macro paging pagination>
         <ul class="pagination">
-           <#list pagination.pages as page>
+           <#list pagination.navigatepageNums as page>
                <#if pagination.pageNum==page>
                     <li class="active"><a href="#">${page}</a></li>
                <#else>

@@ -81,7 +81,6 @@ public class HouseService {
      * 常用于不进行count的查询。
      * @param query
      * @param pageParams
-     * @param orderBy
      * @return
      */
     public List<House> queryHouse(House query, PageParams pageParams) {

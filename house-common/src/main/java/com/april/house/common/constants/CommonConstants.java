@@ -8,4 +8,5 @@ public class CommonConstants {
     public static final String LOGIN_USER_ATTRIBUTE = "loginUser";
     public static final String REDIRECT = "redirect:";
     public static final String FORWARD = "forward:";
+    public static final Integer RECOM_SIZE = 3;
 }

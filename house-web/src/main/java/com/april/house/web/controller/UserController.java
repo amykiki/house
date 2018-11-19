@@ -1,5 +1,6 @@
 package com.april.house.web.controller;
 
+import com.april.house.biz.service.AgencyService;
 import com.april.house.biz.service.UserService;
 import com.april.house.common.constants.CommonConstants;
 import com.april.house.common.model.User;
@@ -26,6 +27,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AgencyService agencyService;
+
     // ----------------------------注册流程------------------------------------
     /**
      * 注册提交
@@ -42,6 +46,7 @@ public class UserController {
     public String accountsRegister(User account, ModelMap modelMap) {
 
         if (account == null || account.getName() == null) {
+            modelMap.put("agencyList", agencyService.getAllAgency());
             //返回注册页面
             return "/user/accounts/register";
         }

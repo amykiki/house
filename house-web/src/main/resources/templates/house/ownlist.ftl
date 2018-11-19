@@ -77,7 +77,7 @@
                          </div><!-- /.table-responsive -->
                             <!-- Pagination -->
                             <div class="center">
-                                  <@common.paging ps.pagination/>
+                                  <@common.paging ps/>
                             </div><!-- /.center-->
                         </div><!-- /.my-properties -->
                     </section><!-- /#my-properties -->

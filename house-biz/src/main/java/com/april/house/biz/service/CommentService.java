@@ -49,7 +49,7 @@ public class CommentService {
         return comments;
     }
 
-    public List<Comment> getHouseComments(Integer houseId, int size) {
+    public List<Comment> getHouseComments(Long houseId, int size) {
         List<Comment> comments = commentMapper.selectCommentsWithType(CommentTypeEnum.HOUSE_CMT.getCode(), houseId, size);
         return comments;
     }
