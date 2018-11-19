@@ -17,19 +17,22 @@ public class PageParams {
     private Integer pageNum;
     private Integer offset;
     private Integer limit;
+    private Boolean count;
+    private String orderBy;
 
-    public PageParams(Integer pageSize, Integer pageNum) {
+    public PageParams(Integer pageSize, Integer pageNum, Boolean count) {
         this.pageNum = pageNum;
         this.pageSize = pageSize;
         this.offset = pageSize * (pageNum - 1);
         this.limit = pageSize;
+        this.count = count;
     }
 
     /**
      * 默认第一页，默认pageSize
      */
     public PageParams() {
-        this(PAGE_SIZE, 1);
+        this(PAGE_SIZE, 1, true);
     }
 
     public static PageParams build(Integer pageSize, Integer pageNum) {
@@ -41,7 +44,23 @@ public class PageParams {
             pageNum = 1;
         }
 
-        return new PageParams(pageSize, pageNum);
+        return new PageParams(pageSize, pageNum, true);
+    }
+
+    public static PageParams build(Integer pageSize, Integer pageNum, Boolean count) {
+        if (pageSize == null) {
+            pageSize = PAGE_SIZE;
+        }
+
+        if (pageNum == null) {
+            pageNum = 1;
+        }
+
+        if (count == null) {
+            count = true;
+        }
+
+        return new PageParams(pageSize, pageNum, count);
     }
 
 

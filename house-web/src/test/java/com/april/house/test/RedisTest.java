@@ -1,15 +1,15 @@
 package com.april.house.test;
 
-import com.april.house.common.model.House;
 import com.april.house.common.model.JsonModel;
-import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.mail.SimpleMailMessage;
 
-import java.util.Date;
+import java.util.Set;
 
 /**
  * @Creation :  2018-11-16 17:22
@@ -60,6 +60,35 @@ public class RedisTest extends BaseTest{
         redisTemplate.opsForValue().set("model", model);
         JsonModel model2 = (JsonModel) redisTemplate.opsForValue().get("model");
         System.out.println(1);
+    }
+
+    @Test
+    public void testCmds() {
+        String key = "hots";
+//        redisTemplate.opsForZSet().incrementScore("hots", 123L, 1D);
+        redisTemplate.opsForZSet().removeRange(key, 0, -1L);
+        redisTemplate.opsForZSet().add(key, "a", 1D);
+        redisTemplate.opsForZSet().add(key, "b", 2D);
+        redisTemplate.opsForZSet().add(key, "c", 3D);
+        redisTemplate.opsForZSet().add(key, "d", 4D);
+        redisTemplate.opsForZSet().add(key, "e", 5D);
+        redisTemplate.opsForZSet().add(key, "f", 6D);
+        printZsets(key);
+        redisTemplate.opsForZSet().incrementScore(key, "c", 2D);
+        printZsets(key);
+        redisTemplate.opsForZSet().removeRange(key, 0L, -4L);
+        printZsets(key);
+    }
+
+    private void printZsets(String key) {
+        Set<ZSetOperations.TypedTuple<Object>> sets = redisTemplate.opsForZSet().rangeWithScores(key, 0L, -1L);
+        System.out.println("\n======Begin=======");
+        sets.forEach(s -> {
+            Double score = s.getScore();
+            String value = s.getValue().toString();
+            System.out.printf("score: %f, value: %s\n", score, value);
+        });
+        System.out.println("======End=======");
     }
 
 }

@@ -8,10 +8,12 @@ import com.april.house.common.enums.HouseUserTypeEnum;
 import com.april.house.common.model.*;
 import com.april.house.common.page.PageParams;
 import com.april.house.common.util.BeanHelper;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Joiner;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -65,10 +67,30 @@ public class HouseService {
      */
     public PageInfo<House> queryHouseByPage(House query, PageParams pageParams) {
         PageHelper.startPage(pageParams.getPageNum(), pageParams.getPageSize());
+        if (StringUtils.isNotBlank(pageParams.getOrderBy())) {
+            PageHelper.orderBy(pageParams.getOrderBy());
+        }
         List<House> queryHouses = queryHouses(query);
         PageInfo<House> pageInfo = new PageInfo<>(queryHouses);
         return pageInfo;
 
+    }
+
+    /**
+     * 仅返回查询list。不返回pageInfo消息
+     * 常用于不进行count的查询。
+     * @param query
+     * @param pageParams
+     * @param orderBy
+     * @return
+     */
+    public List<House> queryHouse(House query, PageParams pageParams) {
+        PageHelper.startPage(pageParams.getPageNum(), pageParams.getPageSize(), pageParams.getCount());
+        if (StringUtils.isNotBlank(pageParams.getOrderBy())) {
+            PageHelper.orderBy(pageParams.getOrderBy());
+        }
+        List<House> queryHouses = queryHouses(query);
+        return queryHouses;
     }
 
     public House queryOneHouse(Long id) {
