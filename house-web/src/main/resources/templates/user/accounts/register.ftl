@@ -36,14 +36,14 @@
                                 <input type="radio" value="2" id="account-type-agent" name="type" required>经纪人
                             </label>
                         </div>
-                         <div id="agency" class="disabled">
+                        <div id="agency" class="disabled">
                             <div class="form-group">
                                 <label for="account-agency">选择经纪机构:</label>
                                 <select name="agencyId" id="agencyId">
-                                      <option value="0" >请选择经纪机构</option>
-                                     <#--<#list agencyList as agency>
+                                    <option value="0" >请选择经纪机构</option>
+                                     <#list agencyList as agency>
                                         <option value="${agency.id}" >${agency.name}</option>
-                                     </#list>-->
+                                     </#list>
                                 </select>
                             </div><!-- /.form-group -->
                         </div>
@@ -57,8 +57,8 @@
                             <input type="text" class="form-control" id="form-create-account-email"  name="email" required>
                         </div><!-- /.form-group -->
                         <div class="form-group">
-                            <label for="form-create-account-phone">手机号:</label>
-                            <input type="text" class="form-control" id="form-create-account-phone"  name="phone" >
+                            <label for="form-create-account-email">手机号:</label>
+                            <input type="text" class="form-control" id="form-create-account-email"  name="phone" >
                         </div><!-- /.form-group -->
                         <div class="form-group">
                             <label for="form-create-account-password">密码:</label>
@@ -68,9 +68,9 @@
                             <label for="form-create-account-confirm-password">确认密码:</label>
                             <input type="password" class="form-control" id="form-create-account-confirm-password" name="confirmPasswd" required>
                         </div><!-- /.form-group -->
-                         <div class="form-group">
+                        <div class="form-group">
                             <label for="form-create-account-email">自我介绍:</label>
-                            <textarea class="form-control" name="aboutme"></textarea> 
+                            <textarea class="form-control" name="aboutme"></textarea>
                         </div>
 
                         <div class="form-group">
@@ -78,13 +78,13 @@
                             <input id="file-upload" type="file" class="file" multiple="true" data-show-upload="false" data-show-caption="false" data-show-remove="false" accept="image/jpeg,image/png" data-browse-class="btn btn-default" data-browse-label="Browse Images" name="avatarFile" required>
                             <figure class="note"><strong>Hint:</strong> You can upload all images at once!</figure>
                         </div>
-                              
-                        
+
+
                         <div class="form-group clearfix">
                             <button type="submit" class="btn pull-right btn-default" id="account-submit">注册账号</button>
                         </div><!-- /.form-group -->
-                        
-                        
+
+
 
                     </form>
                     <hr>
@@ -105,18 +105,18 @@
 <!--[if gt IE 8]>
 <script type="text/javascript" src="/static/assets/js/ie.js"></script>
 <![endif]-->
- <script  type="text/javascript" >
+<script  type="text/javascript" >
     $(document).ready(function() {
-          var errorMsg   = "${errorMsg!""}";
-          var successMsg = "${successMsg!""}";
-          if(errorMsg){ 
-              errormsg("error",errorMsg);
-          }
-          if(successMsg) {
-              successmsg("success",successMsg);
-          }
-        })
-        
- </script>
+        var errorMsg   = "${errorMsg!""}";
+        var successMsg = "${successMsg!""}";
+        if(errorMsg){
+            errormsg("error",errorMsg);
+        }
+        if(successMsg) {
+            successmsg("success",successMsg);
+        }
+    })
+
+</script>
 </body>
 </html>

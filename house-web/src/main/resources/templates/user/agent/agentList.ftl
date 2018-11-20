@@ -54,7 +54,7 @@
                     </section><!-- /#agents-listing -->
                     <!-- Pagination -->
                     <div class="center">
-                        <@common.paging ps.pagination/>
+                        <@common.paging ps/>
                     </div><!-- /.center-->
                 </div><!-- /.col-md-9 -->
                 <!-- end Agent Detail -->

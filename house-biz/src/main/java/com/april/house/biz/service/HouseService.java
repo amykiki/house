@@ -84,7 +84,7 @@ public class HouseService {
      * @return
      */
     public List<House> queryHouse(House query, PageParams pageParams) {
-        PageHelper.startPage(pageParams.getPageNum(), pageParams.getPageSize(), pageParams.getCount());
+        PageHelper.startPage(pageParams.getPageNum(), pageParams.getPageSize(), false);
         if (StringUtils.isNotBlank(pageParams.getOrderBy())) {
             PageHelper.orderBy(pageParams.getOrderBy());
         }

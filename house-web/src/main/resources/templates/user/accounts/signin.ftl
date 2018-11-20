@@ -27,7 +27,7 @@
                     <form role="form" id="form-create-account" method="post" action="/accounts/signin">
                         <div class="form-group">
                             <label for="form-create-account-email">Email:</label>
-                            <input type="text"  name="email" value="${email!}" class="form-control" id="form-create-account-email" required>
+                            <input type="text"  name="username" value="${username!}" class="form-control" id="form-create-account-email" required>
                         </div><!-- /.form-group -->
                         <div class="form-group">
                             <label for="form-create-account-password">密码:</label>
@@ -42,7 +42,7 @@
                     <div class="center"><a href="#" onclick="openRemember()">忘记密码</a></div>
                 </div>
             </div>
-           
+
         </div><!-- /.container -->
     </div>
     <!-- end Page Content -->
@@ -55,24 +55,24 @@
 <!--[if gt IE 8]>
 <script type="text/javascript" src="/assets/js/ie.js"></script>
 <![endif]-->
- <script  type="text/javascript" >
-       $(document).ready(function() {
-          var errorMsg   = "${errorMsg!""}";
-          var successMsg = "${successMsg!""}";
-          if(errorMsg){ 
-              errormsg("error",errorMsg);
-          }
-          if(successMsg) {
-              successmsg("success",successMsg);
-          }
-        })
+<script  type="text/javascript" >
+    $(document).ready(function() {
+        var errorMsg   = "${errorMsg!""}";
+        var successMsg = "${successMsg!""}";
+        if(errorMsg){
+            errormsg("error",errorMsg);
+        }
+        if(successMsg) {
+            successmsg("success",successMsg);
+        }
+    })
 
     function openRemember(){
         var email = document.getElementById('form-create-account-email');
         window.open('/accounts/remember?username='+email.value);
     }
-        
- </script>
-    }
+
+</script>
+}
 </body>
 </html>

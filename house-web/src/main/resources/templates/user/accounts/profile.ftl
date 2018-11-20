@@ -23,20 +23,20 @@
 
         <div class="container">
             <div class="row">
-            <!-- sidebar -->
-            <div class="col-md-3 col-sm-2">
-                <section id="sidebar">
-                    <header><h3>账号</h3></header>
-                    <aside>
-                        <ul class="sidebar-navigation">
-                            <li class="active"><a href="/accounts/profile"><i class="fa fa-user"></i><span>个人信息</span></a></li>
-                            <li><a href="/house/ownlist"><i class="fa fa-home"></i><span>我的房产信息</span></a></li>
-                            <li><a href="/house/bookmarked"><i class="fa fa-heart"></i><span>房产收藏</span></a></li>
-                        </ul>
-                    </aside>
-                </section><!-- /#sidebar -->
-            </div><!-- /.col-md-3 -->
-            <!-- end Sidebar -->
+                <!-- sidebar -->
+                <div class="col-md-3 col-sm-2">
+                    <section id="sidebar">
+                        <header><h3>账号</h3></header>
+                        <aside>
+                            <ul class="sidebar-navigation">
+                                <li class="active"><a href="/accounts/profile"><i class="fa fa-user"></i><span>个人信息</span></a></li>
+                                <li><a href="/house/ownlist"><i class="fa fa-home"></i><span>我的房产信息</span></a></li>
+                                <li><a href="/house/bookmarked"><i class="fa fa-heart"></i><span>房产收藏</span></a></li>
+                            </ul>
+                        </aside>
+                    </section><!-- /#sidebar -->
+                </div><!-- /.col-md-3 -->
+                <!-- end Sidebar -->
                 <!-- My Properties -->
                 <div class="col-md-9 col-sm-10">
                     <section id="profile">
@@ -49,8 +49,8 @@
                                 <div class="col-md-9 col-sm-9">
                                     <form role="form" id="form-account-profile" method="post" action="/accounts/profile">
                                         <input type="hidden" value="${(loginUser.email)!}" name="email" />
-                                    
-                                      
+
+
                                         <section id="contact">
                                             <h3>联系方式</h3>
                                             <dl class="contact-fields">
@@ -66,7 +66,7 @@
                                                 <dd><div class="form-group">
                                                     <input type="text" disabled class="form-control" id="form-account-email" name="form-account-phone" value="${(loginUser.email)!}">
                                                 </div><!-- /.form-group --></dd>
-                                              
+
                                             </dl>
                                         </section>
                                         <section id="about-me">
@@ -75,20 +75,20 @@
                                                 <textarea class="form-control" id="form-contact-agent-message" rows="5" name="aboutme">${(loginUser.aboutme)!}</textarea>
                                             </div><!-- /.form-group -->
                                         </section>
-                                         <section id="social">
+                                        <section id="social">
                                             <div class="form-group clearfix">
                                                 <button type="submit" class="btn pull-right btn-default" id="account-submit">更新</button>
                                             </div><!-- /.form-group -->
                                         </section>
 
-                                       
+
                                     </form><!-- /#form-contact -->
                                     <section id="change-password">
                                         <header><h2>更新密码</h2></header>
                                         <div class="row">
                                             <div class="col-md-6 col-sm-6">
                                                 <form role="form" id="form-account-password" method="post" action="/accounts/changePassword" >
-                                                     <input type="hidden" value="${(loginUser.email)!}" name="email" />
+                                                    <input type="hidden" value="${(loginUser.email)!}" name="email" />
                                                     <div class="form-group">
                                                         <label for="form-account-password-current">当前密码</label>
                                                         <input type="password" name="password" class="form-control" id="form-account-password-current" name="form-account-password-current">
@@ -106,7 +106,7 @@
                                                     </div><!-- /.form-group -->
                                                 </form><!-- /#form-account-password -->
                                             </div>
-                                            
+
                                         </div>
                                     </section>
                                 </div><!-- /.col-md-9 -->
@@ -128,20 +128,20 @@
 <!--[if gt IE 8]>
 <script type="text/javascript" src="assets/js/ie.js"></script>
 <![endif]-->
- <script  type="text/javascript" >
-     
+<script  type="text/javascript" >
 
-     $(document).ready(function() {
-          var errorMsg   = "${errorMsg!""}";
-          var successMsg = "${successMsg!""}";
-          if(errorMsg){ 
-              errormsg("error",errorMsg);
-          }
-          if(successMsg) {
-              successmsg("success",successMsg);
-          }
-        })
-        
- </script>
+
+    $(document).ready(function() {
+        var errorMsg   = "${errorMsg!""}";
+        var successMsg = "${successMsg!""}";
+        if(errorMsg){
+            errormsg("error",errorMsg);
+        }
+        if(successMsg) {
+            successmsg("success",successMsg);
+        }
+    })
+
+</script>
 </body>
 </html>
