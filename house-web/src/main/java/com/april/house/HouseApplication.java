@@ -14,7 +14,6 @@ import tk.mybatis.spring.annotation.MapperScan;
 @EnableScheduling
 public class HouseApplication {
     public static void main(String[] args) {
-        Logger logger = LogManager.getLogger(HouseApplication.class);
         SpringApplication.run(HouseApplication.class, args);
         SecureSaltUtil.genSalt();
     }
