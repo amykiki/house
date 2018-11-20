@@ -6,13 +6,11 @@ import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * @author :  ZouShumin
  * @Creation :  2018-11-19 14:33
  * --------  ---------  --------------------------
  */
