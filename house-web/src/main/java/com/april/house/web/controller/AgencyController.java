@@ -24,7 +24,8 @@ import java.util.Objects;
  * @Creation :  2018-11-20 11:30
  * --------  ---------  --------------------------
  */
-@Controller("/agency")
+@Controller
+@RequestMapping("/agency")
 public class AgencyController {
     @Autowired
     private AgencyService agencyService;
@@ -60,7 +61,7 @@ public class AgencyController {
     @RequestMapping("/agentList")
     public String agentList(Integer pageSize, Integer pageNum, ModelMap modelMap) {
         if (pageSize == null) {
-            pageSize = 6;
+            pageSize = 2;
         }
 
         PageInfo<User> ps = agencyService.getAllAgent(PageParams.build(pageSize, pageNum));

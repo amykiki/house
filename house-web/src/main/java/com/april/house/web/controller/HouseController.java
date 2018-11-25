@@ -22,7 +22,8 @@ import java.util.List;
  * --------  ---------  --------------------------
  */
 
-@Controller ("/house")
+@Controller
+@RequestMapping("/house")
 public class HouseController {
 
     @Autowired
@@ -159,7 +160,7 @@ public class HouseController {
         house.setBookmarked(true);
         house.setUserId(user.getId());
         modelMap.put("ps", houseService.queryHouseByPage(house, PageParams.build(pageSize, pageNum)));
-        modelMap.put("pageType", "own");
+        modelMap.put("pageType", "book");
         return "/house/ownlist";
     }
 

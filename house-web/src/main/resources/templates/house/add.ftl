@@ -68,8 +68,8 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="submit-location">选择名称</label>
-                                                        <select name="communityId" id="submit-location">
+                                                        <label for="sel-community">小区</label>
+                                                        <select name="communityId" id="sel-community">
                                                           <option value="0">选择小区</option>
                                                           <#list communitys as community >
                                                             <option value="${community.id}">${community.name}</option>
@@ -215,7 +215,7 @@
 <script type="text/javascript" src="/static/assets/js/ie.js"></script>
 <![endif]-->
  <script  type="text/javascript" >
-     
+     var communities = new Array();
 
      $(document).ready(function() {
           var errorMsg   = "${errorMsg!""}";
@@ -226,12 +226,21 @@
           if(successMsg) {
               successmsg("success",successMsg);
           }
+
+         $("#sel-community").prop('disabled', true);
+          <#list communitys as ct>
+          var map = {};
+          map['id'] = '${ct.id}';
+          map['name'] = '${ct.name}';
+          map['cityName'] = '${ct.cityName}';
+          communities.push(map);
+          </#list>
         })
 
 
 
 
-    var _latitude  = 39.99;
+    /*var _latitude  = 39.99;
     var _longitude = 116.46;
 
     google.maps.event.addDomListener(window, 'load', initSubmitMap(_latitude,_longitude));
@@ -262,7 +271,7 @@
         });
 
 //      Autocomplete
-        // var input = /** @type {HTMLInputElement} */( document.getElementById('address-map') );
+        // var input = /!** @type {HTMLInputElement} *!/( document.getElementById('address-map') );
         // var autocomplete = new google.maps.places.Autocomplete(input);
         // autocomplete.bindTo('bounds', map);
         // google.maps.event.addListener(autocomplete, 'place_changed', function() {
@@ -305,7 +314,7 @@
         } else {
             error('Geo Location is not supported');
         }
-    });
+    });*/
 
 
 

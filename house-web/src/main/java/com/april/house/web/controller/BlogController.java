@@ -20,7 +20,8 @@ import java.util.List;
  * @Creation :  2018-11-20 12:22
  * --------  ---------  --------------------------
  */
-@Controller("/blog")
+@Controller
+@RequestMapping("/blog")
 public class BlogController {
     @Autowired
     private BlogService blogService;
@@ -30,7 +31,7 @@ public class BlogController {
     private RecommendService recommendService;
 
 
-    @RequestMapping(value = "/list")
+    @RequestMapping("/list")
     public String list(Integer pageSize, Integer pageNum, Blog query, ModelMap modelMap) {
         PageInfo<Blog> ps = blogService.queryPageBlog(query, PageParams.build(pageSize, pageNum));
         modelMap.put("ps", ps);

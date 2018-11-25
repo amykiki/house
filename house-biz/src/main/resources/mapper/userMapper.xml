@@ -12,6 +12,7 @@
             salt,
             avatar,
             type,
+            agency_id,
             create_time,
             enable)
         VALUES (
@@ -23,6 +24,7 @@
             #{salt},
             #{avatar},
             #{type},
+            #{agencyId},
             #{createTime},
             #{enable}
         )

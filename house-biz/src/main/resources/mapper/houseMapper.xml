@@ -140,7 +140,7 @@
             limit  #{pageParams.limit}
         </if>
     </select>
-    <select id="queryHouses" resultType="House">
+    <select id="queryHouses" resultType="house">
         select <include refid="houseField"/>
         from house h
         <include refid="houseCondition"/>

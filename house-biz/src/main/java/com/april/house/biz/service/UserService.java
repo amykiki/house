@@ -1,6 +1,7 @@
 package com.april.house.biz.service;
 
 import com.april.house.biz.mapper.UserMapper;
+import com.april.house.common.enums.HouseUserTypeEnum;
 import com.april.house.common.model.User;
 import com.april.house.common.util.BeanHelper;
 import com.april.house.common.util.HashUtil;
@@ -127,9 +128,14 @@ public class UserService {
     }
 
     private String invalidCache(Cache<String, String> cache, String key) {
-        String value = cache.getIfPresent(key);
-        registerCache.invalidate(key);
-        return value;
+        if (StringUtils.isBlank(key)) {
+            registerCache.invalidateAll();
+            return null;
+        } else {
+            String value = cache.getIfPresent(key);
+            registerCache.invalidate(key);
+            return value;
+        }
     }
 
 

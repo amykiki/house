@@ -2,9 +2,9 @@ package com.april.house.biz.service;
 
 import com.april.house.biz.mapper.AgencyMapper;
 import com.april.house.biz.mapper.UserMapper;
+import com.april.house.common.enums.UserTypeEnum;
 import com.april.house.common.model.Agency;
 import com.april.house.common.model.User;
-import com.april.house.common.page.PageData;
 import com.april.house.common.page.PageParams;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -59,7 +59,9 @@ public class AgencyService {
      */
     public PageInfo<User> getAllAgent(PageParams pageParams) {
         PageHelper.startPage(pageParams.getPageNum(), pageParams.getPageSize());
-        List<User> users = userMapper.selectUsersByQuery(new User());
+        User query = new User();
+        query.setType(UserTypeEnum.AGENT.getCode());
+        List<User> users = userMapper.selectUsersByQuery(query);
         setAgentImage(users);
         return new PageInfo<>(users);
     }

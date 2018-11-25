@@ -13,5 +13,5 @@ public interface HouseMapper {
     int insert(House house);
     int updateHouseRating(House house);
     int downHouse(Long id);
-    List<House> queryHouses(House house);
+    List<House> queryHouses(@Param("house") House house);
 }

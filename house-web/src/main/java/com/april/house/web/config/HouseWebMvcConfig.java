@@ -26,8 +26,20 @@ public class HouseWebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns("/static");
 
-        registry.addInterceptor(authActionInterceptor)
-                .addPathPatterns("/accounts/profile*");
+        registry
+                .addInterceptor(authActionInterceptor)
+                .addPathPatterns("/accounts/profile*")
+                .addPathPatterns("/house/toAdd")
+                .addPathPatterns("/house/add")
+                .addPathPatterns("/house/ownlist")
+                .addPathPatterns("/house/bookmarked")
+                .addPathPatterns("/house/bookmark")
+                .addPathPatterns("/house/unbookmark")
+                .addPathPatterns("/house/del")
+                .addPathPatterns(("/agency/create"))
+                .addPathPatterns(("/agency/submit"))
+                .addPathPatterns("/comment/leaveComment")
+                .addPathPatterns("/comment/leaveBlogComment");
 
     }
 }
