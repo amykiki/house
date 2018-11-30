@@ -1,4 +1,4 @@
-package com.april.house.biz.config;
+package com.april.house.web.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

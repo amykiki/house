@@ -1,4 +1,4 @@
-package com.april.house.biz.config;
+package com.april.house.web.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

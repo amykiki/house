@@ -1,4 +1,4 @@
-package com.april.house.biz.config;
+package com.april.house.web.config;
 
 import com.alibaba.druid.filter.Filter;
 import com.alibaba.druid.filter.stat.StatFilter;

@@ -1,3 +1,4 @@
+alter table house add column rating_nums int(11) not null default 0 after rating;
 insert into agency (name, address, phone, email, about_us, mobile, web_site)
 values
   ('中原地产上海1','中原地产上海1地址','021-89898980','010@gmail.com','中原地产上海','0211','www.centanet.com'),
