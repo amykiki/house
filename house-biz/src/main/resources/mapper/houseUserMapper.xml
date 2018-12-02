@@ -40,4 +40,13 @@
         <!-- 售卖type=1 -->
         and type = 1
     </select>
+
+    <select id="selectBookmarkHouseUser" resultType="java.lang.Integer">
+        select count(*)
+        from house_user
+        where house_id = #{houseId}
+        and user_id = #{userId}
+        <!-- 收藏 type=2 -->
+        and type = 2
+    </select>
 </mapper>

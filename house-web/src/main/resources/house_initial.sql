@@ -1,4 +1,6 @@
 alter table house add column rating_nums int(11) not null default 0 after rating;
+alter table house modify column area double(6,2) not null default 0.0 comment '房产面积';
+alter table house modify column name varchar(40) not null default '' comment '房产名字';
 insert into agency (name, address, phone, email, about_us, mobile, web_site)
 values
   ('中原地产上海1','中原地产上海1地址','021-89898980','010@gmail.com','中原地产上海','0211','www.centanet.com'),

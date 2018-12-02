@@ -71,9 +71,9 @@
                                                         <label for="sel-community">小区</label>
                                                         <select name="communityId" id="sel-community">
                                                           <option value="0">选择小区</option>
-                                                          <#list communitys as community >
+                                                          <#--<#list communitys as community >
                                                             <option value="${community.id}">${community.name}</option>
-                                                          </#list>
+                                                          </#list>-->
                                                         </select>
                                                     </div>
                                                     <div class="row">
@@ -98,7 +98,7 @@
                                                             <div class="form-group">
                                                                 <label for="submit-area">面积</label>
                                                                 <div class="input-group">
-                                                                    <input type="text" class="form-control" id="submit-area" name="area" pattern="\d*" required>
+                                                                    <input type="text" class="form-control" id="submit-area" name="area" pattern="\d*(\.([0-9]{1,2}))?" required>
                                                                     <span class="input-group-addon">m<sup>2</sup></span>
                                                                 </div>
                                                             </div><!-- /.form-group -->
@@ -208,7 +208,7 @@
     <!-- end Page Footer -->
 </div>
 
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyABT1kCnk8CW4Ckpd0RisUg25PIdDD3Gfg"></script>
+<#--<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyABT1kCnk8CW4Ckpd0RisUg25PIdDD3Gfg"></script>-->
 
 <@common.js/>
 <!--[if gt IE 8]>
@@ -227,7 +227,7 @@
               successmsg("success",successMsg);
           }
 
-         $("#sel-community").prop('disabled', true);
+         // $("#sel-community").prop('disabled', true);
           <#list communitys as ct>
           var map = {};
           map['id'] = '${ct.id}';
@@ -235,6 +235,29 @@
           map['cityName'] = '${ct.cityName}';
           communities.push(map);
           </#list>
+         
+         $("#submit-location").bind('change', function () {
+             var cityName = $(this).find("option:selected").text();
+             var cityId = $(this).val();
+             // console.log("cityname = " + cityName);
+             //保留第一项
+             $("#sel-community option:not(:first)").remove()
+             if (cityId != 0) {
+                 for (var i = 0; i < communities.length; i++) {
+                     var cs = communities[i];
+                     if (cityName == cs['cityName']) {
+                         // console.log(cs['id'] + ' ' + cs['name']);
+                         $("#sel-community").append("<option value='"+cs['id']+"'>"+ cs['name'] +"</option>");
+                     }
+
+                 }
+             }
+
+             // 缺一不可
+             $('#sel-community').selectpicker('refresh');
+             $('#sel-community').selectpicker('render');
+
+         })
         })
 
 

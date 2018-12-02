@@ -37,7 +37,8 @@
                                         <option value="">排序</option>
                                         <option value="price_asc"   <#if (vo.sort) == "price_asc">   selected </#if>  >价格由低到高</option>
                                         <option value="price_desc"  <#if (vo.sort) == "price_desc">  selected </#if> >价格由高到低</option>
-                                            <option value="time_desc"   <#if (vo.sort) == "time_desc">   selected </#if> >加入时间</option>
+                                        <option value="createTime_desc"   <#if (vo.sort) == "createTime_desc">   selected </#if> >加入时间最近</option>
+                                        <option value="createTime_asc"   <#if (vo.sort) == "createTime_asc">   selected </#if> >加入时间最远</option>
                                         </select>
                                     </div><!-- /.form-group -->
                                 </div>

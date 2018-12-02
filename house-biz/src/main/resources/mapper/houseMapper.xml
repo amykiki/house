@@ -39,13 +39,14 @@
             </if>
             <if test="house.ids != null and house.ids.size() > 0">
                 and h.id in
-                <foreach collection="house.id" item="item" index="index" open="(" close=")" separator=",">
+                <foreach collection="house.ids" item="item" index="index" open="(" close=")" separator=",">
                     #{item}
                 </foreach>
             </if>
         </where>
     </sql>
     <sql id="houseField">
+        h.id,
         h.name,
         h.type,
         h.price,
@@ -90,12 +91,12 @@
             #{type},
             #{price},
             #{images},
-            #{areas},
+            #{area},
             #{beds},
             #{baths},
             #{rating},
             #{ratingNums},
-            #{remarkds},
+            #{remarks},
             #{properties},
             #{floorPlan},
             #{tags},

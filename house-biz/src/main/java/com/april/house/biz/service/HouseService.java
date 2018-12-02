@@ -209,7 +209,9 @@ public class HouseService {
     }
 
 
-
+    public Integer selectBookmarkHouseUser(Long houseId, Long userId) {
+        return houseUserMapper.selectBookmarkHouseUser(houseId, userId);
+    }
 
 
 

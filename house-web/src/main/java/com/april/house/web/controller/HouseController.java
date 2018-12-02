@@ -9,6 +9,9 @@ import com.april.house.common.page.PageParams;
 import com.april.house.common.result.ResultMsg;
 import com.april.house.common.util.UserContext;
 import com.github.pagehelper.PageInfo;
+import com.google.common.base.CaseFormat;
+import com.google.common.base.CharMatcher;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -50,7 +53,14 @@ public class HouseController {
      */
     @RequestMapping("/list")
     public String houseList(Integer pageSize, Integer pageNum, House query, ModelMap modelMap) {
-        PageInfo<House> ps = houseService.queryHouseByPage(query, PageParams.build(pageSize, pageNum));
+        PageParams pageParams = PageParams.build(pageSize, pageNum);
+        if (StringUtils.isNotBlank(query.getSort())) {
+            String orderBy = CharMatcher.is('_').replaceFrom(query.getSort(), " ");
+            orderBy = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, orderBy);
+            pageParams.setOrderBy(orderBy);
+        }
+
+        PageInfo<House> ps = houseService.queryHouseByPage(query, pageParams);
         List<House> hotHouses = recommendService.getHotHouses(CommonConstants.RECOM_SIZE);
         modelMap.put("recomHouses", hotHouses);
         modelMap.put("ps", ps);
@@ -113,6 +123,16 @@ public class HouseController {
         modelMap.put("recomHouses", rcHouses);
         modelMap.put("house", house);
         modelMap.put("commentList", comments);
+        //检查用户登录态，如果为已登录用户，查看该房产是否被收藏
+        User user = UserContext.getUser();
+        if (user != null) {
+            Integer bookmarked = houseService.selectBookmarkHouseUser(id, user.getId());
+            if (bookmarked != null && bookmarked > 0) {
+                modelMap.put("bookmarkState", "added");
+            } else {
+                modelMap.put("bookmarkState", "empty");
+            }
+        }
         return "/house/detail";
     }
 

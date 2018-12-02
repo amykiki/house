@@ -1,5 +1,8 @@
 package com.april.house.common.model;
 
+import com.april.house.common.enums.HouseTypeEnum;
+import com.google.common.base.Joiner;
+import com.google.common.base.Objects;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -26,7 +29,7 @@ public class House implements Serializable {
     private String name;
     private String images;
     /** 面积 */
-    private Integer area;
+    private Double area;
     /** 卧室 */
     private Integer beds;
     /** 浴室 */
@@ -68,7 +71,36 @@ public class House implements Serializable {
     private Boolean bookmarked;
     private List<Long> ids;
     /** 用于sql排序: price_desc, price_asc, time_desc */
-    private String sort = "time desc";
+    private String sort = "createTime_desc";
+
+    public void setProperties(String properties) {
+        this.properties = properties;
+        this.featureList = Splitter.on(",").splitToList(properties);
+    }
+
+    public void setFeatureList(List<String> featureList) {
+        this.featureList = featureList;
+        this.properties = Joiner.on(",").join(featureList);
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+        this.roundRating = (int) Math.round(rating);
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+        if (Objects.equal(type, HouseTypeEnum.SALE.getCode())) {
+            this.typeStr = "For Sale";
+        } else if (Objects.equal(type, HouseTypeEnum.RENT.getCode())) {
+            this.typeStr = "For Rent";
+        }
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+        this.priceStr = this.price + "万";
+    }
 
     public void setImages(String images) {
         this.images = images;

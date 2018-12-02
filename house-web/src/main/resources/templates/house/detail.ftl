@@ -32,9 +32,10 @@
                         <#if loginUser??>
                             <span class="actions">
                                 <!--<a href="#" class="fa fa-print"></a>-->
-                                <a href="#" class="bookmark" data-bookmark-state="empty"
- 
-                                ><span class="title-add">Add to bookmark</span><span class="title-added">Added</span></a>
+                                <a href="#" class="bookmark" data-bookmark-state="${bookmarkState}">
+                                    <span class="title-add">Add to bookmark</span>
+                                    <span class="title-added">Added</span>
+                                </a>
                             </span>
                        </#if>
                         </header>
@@ -68,7 +69,7 @@
                                         <dt>卫生间:</dt>
                                             <dd>${house.baths}</dd>
                                         <dt>评分:</dt>
-                                            <dd><div class="rating rating-overall" data-score="${house.rating}"></div></dd>
+                                            <dd><div class="rating rating-overall" data-score="${house.roundRating}"></div></dd>
                                     </dl>
                                 </section><!-- /#quick-summary -->
                             </div><!-- /.col-md-4 -->
@@ -110,7 +111,7 @@
                                         </aside>
                                         <figure>
                                             <header>总体评价</header>
-                                            <div class="rating rating-overall" data-score="${house.rating}"></div>
+                                            <div class="rating rating-overall" data-score="${house.roundRating}"></div>
                                         </figure>
                                     </div>
                                     <div class="rating-form">

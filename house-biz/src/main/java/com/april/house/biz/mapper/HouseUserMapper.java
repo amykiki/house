@@ -9,5 +9,6 @@ public interface HouseUserMapper {
     int deleteHouseUser(@Param("houseId") Long houseId, @Param("userId") Long userId, @Param("type") Integer type);
     HouseUser selectHouseUser(@Param("userId") Long userId, @Param("houseId") Long houseId, @Param("type") Integer type);
     HouseUser selectSaleHouseUser(Long houseId);
+    Integer selectBookmarkHouseUser(@Param("houseId") Long houseId, @Param("userId") Long userId);
 
 }
