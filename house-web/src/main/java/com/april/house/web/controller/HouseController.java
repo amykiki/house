@@ -39,7 +39,6 @@ public class HouseController {
     private RecommendService recommendService;
     @Autowired
     private CommentService commentService;
-
     /**
      * 1. 实现分页
      * 2. 支持小区搜索，类型搜素
@@ -53,7 +52,8 @@ public class HouseController {
      */
     @RequestMapping("/list")
     public String houseList(Integer pageSize, Integer pageNum, House query, ModelMap modelMap) {
-        PageParams pageParams = PageParams.build(pageSize, pageNum);
+//        PageParams pageParams = PageParams.build(pageSize, pageNum);
+        PageParams pageParams = PageParams.build(2, pageNum);
         if (StringUtils.isNotBlank(query.getSort())) {
             String orderBy = CharMatcher.is('_').replaceFrom(query.getSort(), " ");
             orderBy = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, orderBy);
@@ -140,9 +140,8 @@ public class HouseController {
     @RequestMapping("/leaveMsg")
     public String houseMsg(UserMsg userMsg) {
         houseService.addUserMsg(userMsg);
-        return CommonConstants.REDIRECT + "/house/detail?id=" + userMsg.getHouseId() + ResultMsg.successMsg("留言成功").asUrlParams();
+        return CommonConstants.REDIRECT + "/house/detail?id=" + userMsg.getHouseId() + "&" + ResultMsg.successMsg("留言成功").asUrlParams();
     }
-
 
     //在detail页面操作
     //1. 评分

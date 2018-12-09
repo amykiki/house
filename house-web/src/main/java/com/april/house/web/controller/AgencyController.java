@@ -46,18 +46,6 @@ public class AgencyController {
         return "/user/agency/create";
     }
 
-    @RequestMapping("/submit")
-    public String agencySubmit(Agency agency) {
-        User user = UserContext.getUser();
-        //判断权限
-        if (user == null || !Objects.equals(user.getEmail(), "admin@gmail.com")) {
-            return CommonConstants.REDIRECT + "/accounts/signin?" + ResultMsg.successMsg("请先登录，并确认有权增加机构").asUrlParams();
-        }
-        agencyService.add(agency);
-        return CommonConstants.REDIRECT + "/index?" + ResultMsg.successMsg("创建成功").asUrlParams();
-    }
-
-
     @RequestMapping("/agentList")
     public String agentList(Integer pageSize, Integer pageNum, ModelMap modelMap) {
         if (pageSize == null) {
@@ -108,6 +96,17 @@ public class AgencyController {
         modelMap.put("agencyList", agencies);
         getAndSetHotHouses(modelMap);
         return "/user/agency/agencyList";
+    }
+
+    @RequestMapping("/submit")
+    public String agencySubmit(Agency agency) {
+        User user = UserContext.getUser();
+        //判断权限
+        if (user == null || !Objects.equals(user.getEmail(), "admin@gmail.com")) {
+            return CommonConstants.REDIRECT + "/accounts/signin?" + ResultMsg.successMsg("请先登录，并确认有权增加机构").asUrlParams();
+        }
+        agencyService.add(agency);
+        return CommonConstants.REDIRECT + "/index?" + ResultMsg.successMsg("创建成功").asUrlParams();
     }
 
     private void getAndSetHotHouses(ModelMap modelMap) {

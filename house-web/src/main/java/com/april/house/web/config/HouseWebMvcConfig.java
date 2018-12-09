@@ -29,6 +29,7 @@ public class HouseWebMvcConfig implements WebMvcConfigurer {
         registry
                 .addInterceptor(authActionInterceptor)
                 .addPathPatterns("/accounts/profile*")
+                .addPathPatterns("/accounts/getHouseMsgs")
                 .addPathPatterns("/house/toAdd")
                 .addPathPatterns("/house/add")
                 .addPathPatterns("/house/ownlist")

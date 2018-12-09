@@ -1,10 +1,13 @@
 package com.april.house.web.controller;
 
 import com.april.house.biz.service.AgencyService;
+import com.april.house.biz.service.MailService;
 import com.april.house.biz.service.UserService;
 import com.april.house.common.constants.CommonConstants;
+import com.april.house.common.model.RedisMailMsg;
 import com.april.house.common.model.User;
 import com.april.house.common.result.ResultMsg;
+import com.april.house.common.util.UserContext;
 import com.april.house.common.util.UserHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -29,6 +32,8 @@ public class UserController {
 
     @Autowired
     private AgencyService agencyService;
+    @Autowired
+    private MailService mailService;
 
     // ----------------------------注册流程------------------------------------
     /**
@@ -211,4 +216,15 @@ public class UserController {
     }
 
 
+    @RequestMapping("/houseMsgs")
+    @ResponseBody
+    public List<String> getHouseMsgs() {
+        User user = UserContext.getUser();
+        if (user == null) {
+            return null;
+        }
+
+        List<String> msgs = mailService.getRedisMails(user.getEmail());
+        return msgs;
+    }
 }

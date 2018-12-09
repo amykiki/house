@@ -46,11 +46,13 @@ public class CommentService {
 
     public List<Comment> getBlogComments(Integer blogId, int size) {
         List<Comment> comments = commentMapper.selectCommentsWithType(CommentTypeEnum.BLOG_CMT.getCode(), blogId.longValue(), size);
+        setUserAvatar(comments);
         return comments;
     }
 
     public List<Comment> getHouseComments(Long houseId, int size) {
         List<Comment> comments = commentMapper.selectCommentsWithType(CommentTypeEnum.HOUSE_CMT.getCode(), houseId, size);
+        setUserAvatar(comments);
         return comments;
     }
 

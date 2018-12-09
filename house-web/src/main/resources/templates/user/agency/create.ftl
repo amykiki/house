@@ -54,11 +54,11 @@
                                     </div><!-- /.form-group -->
                                     <div class="form-group">
                                         <label for="form-create-agency-phone">手机:</label>
-                                        <input type="tel" class="form-control"   name="phone" id="form-create-agency-phone">
+                                        <input type="tel" class="form-control"   name="mobile" id="form-create-agency-phone">
                                     </div><!-- /.form-group -->
                                     <div class="form-group">
                                         <label for="form-create-agency-phone">电话:</label>
-                                        <input type="tel" class="form-control"   name="mobile" id="form-create-agency-phone">
+                                        <input type="tel" class="form-control"   name="phone" id="form-create-agency-phone">
                                     </div>
                                     <div class="form-group">
                                         <label for="form-create-agency-website">网站:</label>

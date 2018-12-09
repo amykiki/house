@@ -57,8 +57,8 @@ public class BlogService {
     }
 
     public Blog queryOneBlog(int id) {
-        Example example = new Example(Blog.class);
-        example.selectProperties("id");
+        Example example = selectField();
+        example.createCriteria().andEqualTo("id", id);
         List<Blog> blogs = queryBlogs(example);
         if (!blogs.isEmpty()) {
             return blogs.get(0);
